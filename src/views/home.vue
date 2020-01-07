@@ -15,55 +15,54 @@
                             <li>退出登录</li>
                         </ul>
                     </p>
-                    
                 </div>
             </el-header>
         <el-container>
             <el-aside width="200px">
-    <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>试题管理</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">
-              <router-link to="/home/addQuestions">添加试题</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-2">
-              <router-link to="/home/questionsType">试题分类</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-3">
-              <router-link to="/home/watchQuestions">查看试题</router-link>
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-    </el-menu>
+              <el-menu
+                default-active="2"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose">
+                  <el-submenu index="1">
+                      <template slot="title">
+                          <i class="el-icon-location"></i>
+                          <span>试题管理</span>
+                      </template>
+                      <el-menu-item-group>
+                        <el-menu-item index="1-1">
+                            <router-link to="/home/addQuestions">添加试题</router-link>
+                        </el-menu-item>
+                        <el-menu-item index="1-2">
+                            <router-link to="/home/questionsType">试题分类</router-link>
+                        </el-menu-item>
+                        <el-menu-item index="1-3">
+                          <router-link to="/home/watchQuestions">查看试题</router-link>
+                        </el-menu-item>
+                    </el-menu-item-group>
+                  </el-submenu>
+              </el-menu>
 
-        <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>用户管理</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-4">
-              <router-link to="/home/addUser">添加用户</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-5">
-              <router-link to="/home/showUser">用户展示</router-link>
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-    </el-menu>
+              <el-menu
+                default-active="2"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose">
+                  <el-submenu index="1">
+                    <template slot="title">
+                      <i class="el-icon-location"></i>
+                      <span>用户管理</span>
+                    </template>
+                    <el-menu-item-group>
+                      <el-menu-item index="1-4">
+                        <router-link to="/home/addUser">添加用户</router-link>
+                      </el-menu-item>
+                    <el-menu-item index="1-5">
+                        <router-link to="/home/showUser">用户展示</router-link>
+                      </el-menu-item>
+                    </el-menu-item-group>
+                  </el-submenu>
+              </el-menu>
 
         <el-menu
       default-active="2"
@@ -169,6 +168,7 @@ export default {
         width: 20%;
         height: 60px;
         display: flex;
+       
         .user{
             width: 120px;
             height: 60px;
