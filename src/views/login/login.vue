@@ -1,6 +1,6 @@
 <template>
     <div class="registry">
-      <img :src="srcs" alt="">
+      <img :src="srcs"/>
       <div class="box">
         <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
         <el-form-item label="用户名" prop="pass">
@@ -55,7 +55,7 @@ export default {
             }
         };
         return {
-            srcs:require('../../../public/20200102205356.jpg'),
+            srcs:require('../../../public/3354.jpg'),
             ruleForm2: {
                 pass: "",
                 checkPass: "",

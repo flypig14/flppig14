@@ -18,10 +18,38 @@ const routes = [
             component:()=>import("../views/question/watchQuestions.vue")
         }, {
             path:"/home/addUser",
-            component:()=>import("../views/user/addUser.vue")
+            component:()=>import("../views/user/addUser/addUser.vue")
         }, {
             path:"/home/showUser",
-            component:()=>import("../views/user/showUser.vue")
+            component:()=>import("../views/user/showUser/showUser.vue"),
+            children:[{
+                path:'/home/showUser/userData',
+                component:()=>import("../views/user/showUser/userData/userData.vue")
+            },
+            {
+                path:'/home/showUser/idData',
+                component:()=>import("../views/user/showUser/idData/idData.vue")
+            },
+            {
+                path:'/home/showUser/apiPower',
+                component:()=>import("../views/user/showUser/apiPower/apiPower.vue")
+            },
+            {
+                path:'/home/showUser/apiRelation',
+                component:()=>import("../views/user/showUser/apiRelation/apiRelation.vue")
+            },
+            {
+                path:'/home/showUser/intoPower',
+                component:()=>import("../views/user/showUser/intoPower/intoPower.vue")
+            },
+            {
+                path:'/home/showUser/viewPower',
+                component:()=>import("../views/user/showUser/viewPower/viewPower.vue")
+            },
+            {
+                path:'/home/showUser',
+                redirect:'/home/showUser/userData'
+            }]
         }, {
             path:"/home/addExam",
             component:()=>import("../views/exam/addExam.vue")
