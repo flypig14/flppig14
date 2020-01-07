@@ -1,6 +1,6 @@
 <template>
-    <div class="home">
-        主页页面
+    <div>
+        学生管理
     </div>
 </template>
 
