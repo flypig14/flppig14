@@ -10,12 +10,12 @@
             <el-input placeholder="请输入密码" v-model="user_pwd" show-password></el-input>
             <el-button type="primary" @click="loginFn">登录</el-button>
         </div>
-        
     </div>
 </template>
 
 <script>
-// import axios from "axios"
+import axios from "axios"
+import cookie from "js-cookie"
 export default {
     data(){
         return{
@@ -28,6 +28,18 @@ export default {
         loginFn(){
             if(!this.user_name.trim() && !this.user_pwd.trim()){
                 alert("不能为空")
+            }else{
+                axios.post("/api/user/login", {
+                    user_name:this.user_name,
+                    user_pwd:this.user_pwd
+                }).then(res=>{
+                    if(res.data.code === 1){
+                        cookie.set("token", res.data.token)
+                        this.$router.push("/home")
+                    }else{
+                        alert(res.data.msg)
+                    }
+                })
             }
         }
     }
