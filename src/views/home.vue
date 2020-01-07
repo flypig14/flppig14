@@ -131,9 +131,12 @@
             <main>
               <router-view></router-view>
             </main>
+<<<<<<< HEAD
             <footer>
 
             </footer>
+=======
+>>>>>>> 8914a5aa88b55884ae442dc7f37615c7c6a8ad9f
           </div>
         </el-main>
       </el-container>
