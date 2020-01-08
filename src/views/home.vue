@@ -131,12 +131,6 @@
             <main>
               <router-view></router-view>
             </main>
-<<<<<<< HEAD
-            <footer>
-
-            </footer>
-=======
->>>>>>> 6c06f4dc3d3a8a6848f8ec7754817437a30f48c0
           </div>
         </el-main>
       </el-container>

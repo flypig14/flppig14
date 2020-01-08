@@ -53,14 +53,6 @@ instance.interceptors.request.use(function(config){
 instance.interceptors.response.use(function(response){
 
     return response;
-<<<<<<< HEAD
-}, function(error){
-    Notification({
-        message : status[err.response.status]
-    })
-    return Promise.reject(error)
-=======
->>>>>>> 6c06f4dc3d3a8a6848f8ec7754817437a30f48c0
 }, function(err){
     //响应错误，返回code值
    
