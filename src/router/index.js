@@ -65,8 +65,12 @@ const routes = [
                 path:'/home/showUser',
                 redirect:'/home/showUser/userData'
             }]
+<<<<<<< HEAD
         }, 
         {
+=======
+        }, {
+>>>>>>> 6c06f4dc3d3a8a6848f8ec7754817437a30f48c0
             path:"/home/addExam",
             component:()=>import("../views/exam/addExam.vue"),
             meta:{
