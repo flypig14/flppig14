@@ -25,25 +25,14 @@ html,body,#app{
 .el-popup-parent--hidden{
         overflow: auto !important;
     }
-
-// #app {
-//   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
-
-// #nav {
-//   padding: 30px;
-
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-//   }
+.el-table thead{
+    background-color: #000 !important;
+}
+.el-table td, .el-table th.is-leaf{
+    padding-left: 10px;
+}
+// .el-table td, .el-table th{
+//   padding: 0 !important;
 // }
 </style>
+

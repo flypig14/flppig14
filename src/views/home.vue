@@ -131,12 +131,6 @@
             <main>
               <router-view></router-view>
             </main>
-<<<<<<< HEAD
-            <footer>
-
-            </footer>
-=======
->>>>>>> 8914a5aa88b55884ae442dc7f37615c7c6a8ad9f
           </div>
         </el-main>
       </el-container>
@@ -276,7 +270,10 @@ export default {
   .el-menu{
       background: #222a40;
      a{
-         text-decoration: none
+       display: block;
+        width: 100%;
+        height: 100%;
+        text-decoration: none
      }
   }
   .el-submenu__title{
@@ -287,6 +284,7 @@ export default {
   }
   .el-menu-item{
     a{
+      
       color: #ccc;
     }
   }

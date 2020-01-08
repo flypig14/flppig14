@@ -5,6 +5,7 @@
         </el-button>
             <el-table
                 :data="tableData"
+                :header-row-style="{background:'#000'}"
                 >
             <el-table-column
                 label="类型id"
@@ -39,40 +40,53 @@
 </template>
 
 <script>
-import http from "../../utils/request.js"
+// import http from "../../utils/request.js"
+import {mapState, mapActions} from "vuex"
 import cookie from "js-cookie"
 export default {
+    computed:{
+        ...mapState("questiontype", ["tableData"])
+
+    },
     created(){
         this.getData()
 
     },
     data() {
         return {
-            tableData: [],
+            // tableData: [],
             token:cookie.get("token"),
             flag:false,
             text:"",
             sort:""
         }
-    },
+    },    
     methods: {
-        getData(){
-            http.get("/api/exam/getQuestionsType", {header:this.token}).then(res=>{
-                if(res.data.code === 1){
-                    this.tableData = res.data.data
-                }
-            })
-        },
+        // getData(){
+        //     this.$http.get("/api/exam/getQuestionsType", {header:this.token}).then(res=>{
+        //         if(res.data.code === 1){
+        //             this.tableData = res.data.data
+        //         }
+        //     })
+        // },
+        ...mapActions("questiontype", ["getData"]),
+        ...mapActions("questiontype", ["setData"]),
+
         clickFn(){
             this.flag = !this.flag
         },
         changeFn(){
-            http.get("/api/exam/insertQuestionsType", {text:this.text, sort:this.sort} 
-            ).then(res=>{
-                if(res.data.code === 1){
-                    this.getData()
-                }
+            this.setData({
+                text:this.text,
+                sort:this.sort
             })
+            //     this.$http.get("/api/exam/insertQuestionsType", {text:this.text, sort:this.sort} 
+            //     ).then(res=>{
+            //         if(res.data.code === 1){
+            //             this.getData()
+            //         }
+            //     })
+            this.getData()
             this.flag = !this.flag
         }
       
@@ -97,9 +111,7 @@ export default {
             margin: 20px auto;
         
     }
-    .el-table thead{
-        background-color: #000 !important;
-    }
+    
     
     
 

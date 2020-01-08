@@ -27,11 +27,16 @@ const routes = [
             }
         }, {
             path:"/home/addUser",
-<<<<<<< HEAD
-            component:()=>import("../views/user/addUser/addUser.vue")
+            component:()=>import("../views/user/addUser/addUser.vue"),
+            meta:{
+                title:"添加用户"
+            }
         }, {
             path:"/home/showUser",
             component:()=>import("../views/user/showUser/showUser.vue"),
+            meta:{
+                title:"用户展示"
+            },
             children:[{
                 path:'/home/showUser/userData',
                 component:()=>import("../views/user/showUser/userData/userData.vue")
@@ -60,18 +65,6 @@ const routes = [
                 path:'/home/showUser',
                 redirect:'/home/showUser/userData'
             }]
-=======
-            component:()=>import("../views/user/addUser.vue"),
-            meta:{
-                title:"添加用户"
-            }
-        }, {
-            path:"/home/showUser",
-            component:()=>import("../views/user/showUser.vue"),
-            meta:{
-                title:"用户展示"
-            }
->>>>>>> 8914a5aa88b55884ae442dc7f37615c7c6a8ad9f
         }, {
             path:"/home/addExam",
             component:()=>import("../views/exam/addExam.vue"),
