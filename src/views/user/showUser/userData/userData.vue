@@ -1,43 +1,52 @@
 <template>
     <div class="userData">
         <el-table
-      :data="tableData"
+      :data="tableData.slice((currentpage - 1) * pagesize, currentpage * pagesize)"
       style="width: 100%">
       <el-table-column
-        prop="date"
+        prop="user_name"
         label="用户名"
-        style="width: 25%">
+        min-width="30%">
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="密码"
-        style="width: 50%">
+        prop="user_pwd"
+        label="密码">
       </el-table-column>
       <el-table-column
-        prop="address"
+        prop="identity_text"
         label="身份"
-        style="width: 25%">
+        min-width="20%">
       </el-table-column>
     </el-table>
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="tableData.length"
+        :page-size="pagesize"
+        :current-page="currentpage"
+        @current-change="handleCurrentChange">
+    </el-pagination>
     </div>
 </template>
 
 <script>
-import http from '../../../../utils/request.js'
 import cookie from 'js-cookie'
+import {mapState, mapActions} from 'vuex'
 export default {
+    computed:{
+        ...mapState('userData', ['tableData'])
+    },
     data() {
         return {
-            tableData: [],
-            token:cookie.get('token')
+            token:cookie.get('token'),
+            pagesize:5,
+            currentpage:1
         }
     },
     methods: {
-        getList(){
-            http.get('/api/user/user', {header:token}).then(res=>{
-                console.log(res)
-            })
-       
+        ...mapActions('userData', ['getList']),
+        handleCurrentChange:function(currentpage){
+            this.currentpage = currentpage;
         }
     },
     created() {
@@ -46,6 +55,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.pages{
+    float: right;
+    margin-top: 25px;
+}
 </style>

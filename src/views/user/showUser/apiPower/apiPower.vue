@@ -1,53 +1,63 @@
 <template>
     <div class="apiPower">
          <el-table
-      :data="tableData"
+      :data="tableData.slice((currentpage - 1) * pagesize, currentpage * pagesize)"
       style="width: 100%">
       <el-table-column
-        prop="date"
-        label="api权限名称"
-        style="width: 25%">
+        prop="api_authority_text"
+        label="api权限名称">
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="api权限url"
-        style="width: 50%">
+        prop="api_authority_url"
+        label="api权限url">
       </el-table-column>
       <el-table-column
-        prop="address"
+        prop="api_authority_method"
         label="api权限方法"
-        style="width: 25%">
+        min-width="20%">
       </el-table-column>
     </el-table>
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="tableData.length"
+        :page-size="pagesize"
+        :current-page="currentpage"
+        @current-change="handleCurrentChange">
+    </el-pagination>
     </div>
 </template>
 
 <script>
+import cookie from 'js-cookie'
+import {mapState, mapActions} from 'vuex'
 export default {
+    computed:{
+        ...mapState('apiPower', ['tableData'])
+
+    },
     data() {
         return {
-            tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄'
-            }]
+            token:cookie.get('token'),
+            pagesize:5,
+            currentpage:1
         }
-    }
+    },
+    methods: {
+        ...mapActions('apiPower', ['getList']),
+        handleCurrentChange:function(currentpage){
+            this.currentpage = currentpage;
+        }
+    },
+    created() {
+        this.getList()
+    },
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.pages{
+    float: right;
+    margin-top: 25px;
+}
 </style>

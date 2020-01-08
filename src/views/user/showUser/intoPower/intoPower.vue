@@ -18,24 +18,31 @@
 </template>
 
 <script>
+import http from '../../../../utils/request.js'
+import cookie from 'js-cookie'
 export default {
     data() {
         return {
-            tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-            }]
+            tableData: [],
+            token:cookie.get('token'),
+            total:null,
+            page:5 
         }
-    }
+    },
+    methods: {
+        getList(){
+            http.get('/api/user/user').then(res=>{
+                if(res.data.code === 1){
+                    this.tableData = res.data.data.slice(0, this.page);
+                    this.total = res.data.data.length;
+                }
+            })
+       
+        }
+    },
+    created() {
+        this.getList()
+    },
 }
 </script>
 

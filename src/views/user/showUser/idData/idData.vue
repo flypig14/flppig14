@@ -1,33 +1,54 @@
 <template>
     <div class="idData">
         <el-table
-      :data="tableData"
+      :data="tableData.slice((currentpage - 1) * pagesize, currentpage * pagesize)"
       style="width: 100%">
       <el-table-column
-        prop="date"
-        label="用户名">
+        prop="identity_text"
+        label="身份名称">
       </el-table-column>
     </el-table>
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="tableData.length"
+        :page-size="pagesize"
+        :current-page="currentpage"
+        @current-change="handleCurrentChange">
+    </el-pagination>
     </div>
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
+import cookie from 'js-cookie'
 export default {
+    computed:{
+        ...mapState('idData', ['tableData'])
+    },
     data() {
         return {
-            tableData: [{
-                date: '身份名称',
-            }, {
-                date: '管理者',
-
-            }, {
-                date: '出题者',
-
-            }, {
-                date: '浏览者',
-            }]
+            token:cookie.get('token'),
+            pagesize:5,
+            currentpage:1
         }
-    }
+    },
+    methods: {
+        ...mapActions('idData', ['getList']),
+        handleCurrentChange:function(currentpage){
+            this.currentpage = currentpage;
+        }
+        // getList(){
+        //     http.get('/api/user/identity').then(res=>{
+        //         if(res.data.code === 1){
+        //             this.tableData = res.data.data
+        //         }
+        //     })
+        // }
+    },
+    created() {
+        this.getList()
+    },
 }
 </script>
 
