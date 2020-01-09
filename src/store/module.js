@@ -10,9 +10,13 @@ import idData from '../service/idData'
 import apiPower from '../service/apiPower'
 import apiRelation from '../service/apiRelation'
 import viewPower from '../service/viewPower'
+<<<<<<< HEAD
 import watch from '../service/watch'
 import addExam from '../service/addExam'
 
+=======
+import addUser from '../service/addUser'
+>>>>>>> list
 
 
 Vue.use(Vuex)
@@ -24,13 +28,21 @@ export default new Vuex.Store({
         questiontype,
         room,
         student,
+<<<<<<< HEAD
         examlist,
+=======
+        list,
+>>>>>>> list
         userData,
         idData,
         apiPower,
         apiRelation,
         viewPower,
+<<<<<<< HEAD
         watch,
         addExam
+=======
+        addUser
+>>>>>>> list
     }
 })
