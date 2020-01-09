@@ -5,18 +5,18 @@
             <el-input v-model="student_id" placeholder="请输入学生学号"></el-input>
             <el-select v-model="value" placeholder="请选择教室号">
                 <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    v-for="item in grade"
+                    :key="item.grade_id"
+                    :label="item.grade_name"
+                    :value="item.grade_name">
                 </el-option>
             </el-select>
-            <el-select v-model="value" placeholder="请选择教室号">
+            <el-select v-model="text" placeholder="班级名">
                 <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    v-for="item in room"
+                    :key="item.room_id"
+                    :label="item.room_text"
+                    :value="item.room_text">
                 </el-option>
             </el-select>
             <el-button type="primary">搜索</el-button>
@@ -96,37 +96,28 @@ import {mapState, mapActions} from "vuex"
 export default {
     created(){
         this.getData()
+        this.getgrade()
+        this.getroom()
     },
     computed:{
-        ...mapState("student", ["tableData"])
+        ...mapState("student", ["tableData"]),
+        ...mapState("student", ["grade"]),
+        ...mapState("student", ["room"])
     },
     data(){
         return {
             student_name:"",
-            student_id:"",    
-            options: [{
-                value: '选项1',
-                label: '黄金糕'
-            }, {
-                value: '选项2',
-                label: '双皮奶'
-            }, {
-                value: '选项3',
-                label: '蚵仔煎'
-            }, {
-                value: '选项4',
-                label: '龙须面'
-            }, {
-                value: '选项5',
-                label: '北京烤鸭'
-            }],
-            value: '',
+            student_id:"",
+            value:"",
+            text: '',
             currentPage:1, //初始页
             pagesize:20,    //    每页的数据
         }
     },
     methods:{ 
         ...mapActions("student", ["getData"]),
+        ...mapActions("student", ["getgrade"]),
+        ...mapActions("student", ["getroom"]),
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
         },
@@ -143,7 +134,6 @@ export default {
     display: flex;
     flex-direction: column;
     .form{
-        width: 100%;
         height: 50px;
         display: flex;
         background: #E9EEF3;

@@ -5,21 +5,21 @@
                 考试类型：
                 <el-select v-model="value">
                     <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
+                        v-for="item in type"
+                        :key="item.exam_id"
+                        :label="item.exam_name"
+                        :value="item.exam_name">
                     </el-option>
                 </el-select>
             </label>
             <label for="">
                 课程：
-                <el-select v-model="value">
+                <el-select v-model="text">
                     <el-option
                         v-for="item in options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
+                        :key="item.subject_id"
+                        :label="item.subject_text"
+                        :value="item.subject_text">
                     </el-option>
                 </el-select>
             </label>
@@ -38,6 +38,7 @@
             </ul>
         </div>
         <p></p>
+       
         <el-table
             :data="tableData"
             style="width: 100%">
@@ -45,23 +46,30 @@
             label="试卷信息"
             width="350px">
             <template slot-scope="scope">
-                <i class="el-icon-time"></i>
                 <span style="margin-left: 10px">{{ scope.row.title }}</span>
             </template>
             </el-table-column>
             <el-table-column
             label="班级"
-            width="350px">
+            width="350px"
+            id="table">
             <template slot-scope="scope">
-                <i class="el-icon-time"></i>
-                <span style="margin-left: 10px">{{ scope.row.grade_name }}</span>
+                <div class="exam">
+                    <span style="margin-left: 10px">考试班级</span>
+                    <span>
+                        <i style="margin-left: 10px" v-for="(item,index) in             scope.row.grade_name" :key="index">
+                            {{item}}
+                        </i>
+                    </span>
+                    
+                </div>
+                
             </template>
             </el-table-column>
             <el-table-column
             label="创建人"
             width="150px">
             <template slot-scope="scope">
-                <i class="el-icon-time"></i>
                 <span style="margin-left: 10px">{{ scope.row.user_name }}</span>
             </template>
             </el-table-column>
@@ -69,7 +77,6 @@
             label="开始时间"
             width="200px">
             <template slot-scope="scope">
-                <i class="el-icon-time"></i>
                 <span style="margin-left: 10px">{{ scope.row.start_time }}</span>
             </template>
             </el-table-column>
@@ -77,19 +84,18 @@
             label="结束时间"
             width="200px">
             <template slot-scope="scope">
-                <el-popover trigger="hover" placement="top">
-                <p>姓名: {{ scope.row.name }}</p>
-                <p>住址: {{ scope.row.address }}</p>
+                
                 <div slot="reference" class="name-wrapper">
                     <el-tag size="medium">{{ scope.row.end_time }}</el-tag>
                 </div>
-                </el-popover>
+               
             </template>
             </el-table-column>
             <el-table-column label="操作">
-               <span style="margin-left : 10px">删除</span>
+               <span style="margin-left : 10px; color: blue">详情</span>
             </el-table-column>
         </el-table>
+       
     </div>
 </template>
 
@@ -97,15 +103,19 @@
 import {mapState, mapActions} from "vuex"
 export default {
     created(){
+        this.getList()
         this.getData()
+        this.getType()
     },
     computed:{
-        ...mapState("list", ["tableData"])
+        ...mapState("examlist", ["tableData"]),
+        ...mapState("examlist", ["type"]),
+        ...mapState("examlist", ["options"])
     },
     data(){
         return {
             value:"",
-            options:[],
+            text:"",
             liData:["全部", "进行中", "已结束"],
             curIndex:1,
             
@@ -116,7 +126,9 @@ export default {
             console.log(1)
             this.curIndex = index 
         },
-        ...mapActions("list", ["getData"])
+        ...mapActions("examlist", ["getList"]),
+        ...mapActions("examlist", ["getData"]),
+        ...mapActions("examlist", ["getType"]),
     }
 
 }
@@ -155,6 +167,7 @@ export default {
         width: 80%;
         height: 100%;
         line-height: 50px
+
     }
     ul{
         width: 20%;
@@ -173,4 +186,20 @@ export default {
 .active{
     border:1px solid blue !important;
 }
+
+.exam{
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    span{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        i{
+            font-style: normal;
+        }
+    }
+   
+} 
+
 </style>

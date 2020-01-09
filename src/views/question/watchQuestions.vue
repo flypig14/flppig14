@@ -1,15 +1,180 @@
 <template>
-    <div>
-        查看
+    <div class="watch">
+        <header>
+            <label for="">
+                <h4>所有课程：</h4> 
+                <span>All</span>
+                <span v-for="(v,i) in type" :key="i">
+                    {{v.subject_text}}
+                </span>
+            </label>
+            <label for="">
+                考试类型：
+                <el-select v-model="value" placeholder="请选择">
+                    <el-option
+                        v-for="item in questype"
+                        :key="item.exam_id"
+                        :label="item.exam_name"
+                        :value="item.exam_name">
+                    </el-option>
+                </el-select>
+                题目类型：
+                <el-select v-model="text" placeholder="请选择">
+                    <el-option
+                        v-for="item in options"
+                        :key="item.questions_type_id"
+                        :label="item.questions_type_text"
+                        :value="item.questions_type_text">
+                    </el-option>
+                </el-select>
+                  <el-button type="primary">
+                      <i class="el-icon-search"></i>
+                      主要按钮
+                    </el-button>
+            </label>
+        </header>
+        <p></p>
+        <div class="listbox" v-for="(v,i) in data" :key="i">
+            <div class="left">
+                <span>{{v.title}}</span>
+                <span>
+                   <i>{{v.questions_type_text}}</i>
+                   <i>{{v.subject_text}}</i>
+                   <i>{{v.exam_name}}</i>
+                </span>
+                <span>{{v.user_name}} 发布</span>
+            </div>
+            <div class="right">编辑</div>
+        </div>
     </div>
 </template>
 
 <script>
+import {mapState, mapActions} from "vuex"
 export default {
+    created(){
+        this.getList()
+        this.getData()
+        this.getType()
+        this.getOpt()
+    },
+    computed:{
+        ...mapState("watch", ["data"]),
+        ...mapState("watch", ["type"]),
+        ...mapState("watch", ["questype"]),
+        ...mapState("watch", ["options"])
+    },
+    data(){
+        return {
+            value:"",
+            text:"",
+        }
+    },
+    methods:{
+        ...mapActions("watch", ["getList"]),
+        ...mapActions("watch", ["getData"]),
+        ...mapActions("watch", ["getType"]),
+        ...mapActions("watch", ["getOpt"])
+    }
 
 }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+.watch{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+header{
+    width: 100%;
+    height: 100px;
+    label{
+        width: 100%;
+        height: 50px;
+        display: flex;
+        font-size: 14px;
+        margin-left: 50px;
+        line-height: 50px;
+        span{
+            margin-left: 20px;
+        }
+    }
+}
+.el-button{
+    width: 150px;
+    height: 40px;
+    margin: 5px 20px;
+}
+.el-select,.el-input{
+    width: 300px;
+    margin: 0 20px;
+    height: 20px !important;
+}
+p{
+    width: 100%;
+    height: 5px;
+    background: #eee;
+}
+.listbox{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    .left{
+        width: 90%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        span{
+            width: 100%;
+            height: 30%;
+            display: flex;
+            line-height: 27px;
+            i{
+                font-style: normal;
+                font-size: 12px;
+                margin-top: 5px;
+                &:nth-child(1){
+                    width: 70px;
+                    height: 20px;
+                    border:1px solid #bce6ff;
+                    line-height: 20px;
+                    text-align: center;
+                    background:#e6f7ff;
+                    color: #1890ff;
+                }
+                &:nth-child(2){
+                    width: 110px;
+                    height: 20px;
+                    border:1px solid #adc6ff;
+                    line-height: 20px;
+                    text-align: center;
+                    background: #f0f5ff;
+                    margin: 5px 5px;
+                    color: #8654eb;
+                }
+                &:nth-child(3){
+                    width: 50px;
+                    height: 20px;
+                    border:1px solid #ffd591;
+                    line-height: 20px;
+                    text-align: center;
+                    background:#fff7e6;
+                    color: #fca916;
+                }
+            }
+        }
+    }
+    .right{
+        width: 10%;
+        height: 100%;
+        line-height: 90px
+    }
+}
+.listbox:hover{
+    background: #eee;
+}
 </style>

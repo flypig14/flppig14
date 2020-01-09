@@ -6,19 +6,19 @@
             <label for=""><span>*</span> 选择考试类型</label>
             <el-select v-model="value" placeholder="请选择" style="width:200px">
                 <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in type"
+                :key="item.exam_id"
+                :label="item.exam_name"
+                :value="item.exam_name">
                 </el-option>
             </el-select>
             <label for=""><span>*</span> 选择课程</label>
-            <el-select v-model="value" placeholder="请选择" style="width:200px">
+            <el-select v-model="text" placeholder="请选择" style="width:200px">
                 <el-option
                     v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    :key="item.questions_type_id"
+                    :label="item.questions_type_text"
+                    :value="item.questions_type_text">
                 </el-option>
             </el-select>
             <label for=""><span>*</span> 设置题量</label>
@@ -53,14 +53,27 @@
 </template>
 
 <script>
+import {mapState, mapActions} from "vuex"
 export default {
     data(){
         return {
             startTime:"",
             endTime:"",
             value:"",
-            options:[]
+            text:""
         }
+    },
+    created(){
+        this.getType()
+        this.getOpt()
+    },
+    computed:{
+        ...mapState("addExam", ["options"]),
+        ...mapState("addExam", ["type"])
+    },
+    methods:{
+        ...mapActions("addExam", ["getType"]),
+        ...mapActions("addExam", ["getOpt"])
     }
 
 }

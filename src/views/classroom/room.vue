@@ -1,7 +1,7 @@
 <template>
     <div class="room">
-        <el-button type="primary" id="el-button" @click="clickFn">+  添加班级</el-button>
-                <el-table
+        <el-button type="primary" id="el-button" @click="clickFn">+  添加教室</el-button>
+        <el-table
             :data="tableData"
             style="width: 100%">
             <el-table-column
@@ -27,13 +27,13 @@
             :visible.sync="flag"
             center>
             <el-input
-                placeholder="请输入试题名称"
-                v-model="text"
+                placeholder="请输入班级名"
+                v-model="room_text"
                 clearable>
             </el-input>
             <span slot="footer" class="dialog-footer">
             <el-button @click="flag = false">取 消</el-button>
-            <el-button type="primary" >提交</el-button>
+            <el-button type="primary" @click="submit">提交</el-button>
             </span>
         </el-dialog>
     </div>
@@ -47,11 +47,12 @@ export default {
     },
     created(){
         this.getData()
+        
     },
     data(){
         return {
             flag:false,
-            text:""
+            room_text:""
         }
     },
     methods:{
@@ -67,6 +68,14 @@ export default {
         ...mapActions("room", [
             "getData"
         ]),
+        ...mapActions("room", [
+            "submitFn"
+        ]),
+        submit(){
+       
+            this.flag = !this.flag
+        }
+        
     }
 
 }

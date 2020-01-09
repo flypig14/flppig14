@@ -18,8 +18,8 @@
                 <template slot-scope="scope">
                     <!-- <el-popover trigger="hover" placement="top"> -->
                         <!-- <p>姓名: {{ scope.row.name }}</p> -->
-                        <div slot="reference" class="name-wrapper">
-                            <el-tag size="medium" style="margin-left: 10px">{{scope.row.subject_text }}</el-tag>
+                        <div slot="reference" class="name-wrapper" style="margin-left: 10px">
+                            {{scope.row.subject_text }}
                         </div>
                     <!-- </el-popover> -->
                 </template>
@@ -28,12 +28,11 @@
                 label="教室号"
                 width="300px">
                 <template slot-scope="scope">
-                    <el-popover trigger="hover" placement="top">
-                        <p>姓名: {{ scope.row.name }}</p>
-                        <div slot="reference" class="name-wrapper">
-                            <el-tag size="medium" style="margin-left: 10px">{{ scope.row.room_text }}</el-tag>
+                   
+                        <div slot="reference" class="name-wrapper" style="margin-left: 10px">
+                            {{ scope.row.room_text }}
                         </div>
-                    </el-popover>
+              
                 </template>
             </el-table-column>
             <el-table-column label="操作">

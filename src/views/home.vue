@@ -160,9 +160,13 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 999;
     .el-left{
         width: 80%;
         height: 60px;
+        img{
+          height: 100%;
+        }
     }
     .el-right{
         width: 20%;
@@ -229,6 +233,7 @@ export default {
             line-height: 27px;
             text-align: center;
             color: #fff;
+            text-decoration: none;
         }
     }
     
@@ -258,7 +263,8 @@ export default {
       main{
           flex:1;
           width: 100%;
-          overflow: auto;
+          // overflow: auto;
+        
           background: #fff;
       }
       footer{

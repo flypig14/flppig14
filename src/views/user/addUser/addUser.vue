@@ -51,7 +51,9 @@ export default {
             activeName2: 'first',
             restaurants: [],
             state4: '',
-            timeout:  null
+            timeout:  null,
+            input1:"",
+            input2:""
         };
     },
     methods: {

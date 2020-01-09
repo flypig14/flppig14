@@ -17,6 +17,16 @@ const room = {
                     commit("setlist", res.data.data)
                 }
             })
+        },
+        submitFn(room_text){
+            $http.post("/api/manger/room", {room_text}).then(res=>{
+                if(res.data.code === 1){
+                    alert(res.data.msg)
+                }else{
+                    alert(res.data.msg)
+                }
+            })
+            
         }
     }
     
