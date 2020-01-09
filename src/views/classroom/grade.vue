@@ -54,51 +54,87 @@
             :visible.sync="flag"
             center>
             <el-input
-                placeholder="请输入试题名称"
+                placeholder="请输入班级号"
                 v-model="grade_name"
                 clearable>
             </el-input>
-            <el-input placeholder="请输入试题序号" v-model="room_text" show-password></el-input>
-            <el-input placeholder="请输入试题序号" v-model="subject_text" show-password></el-input>
+            <el-input placeholder="请输入教室号" v-model="room_text" show-password></el-input>
+            <el-input placeholder="请输入课程名" v-model="subject_text" show-password></el-input>
             <span slot="footer" class="dialog-footer">
             <el-button @click="flag = false">取 消</el-button>
-            <el-button type="primary">提交</el-button>
+            <el-button type="primary" @click="submit">提交</el-button>
+            </span>
+        </el-dialog>
+
+        <el-dialog
+            title="提示"
+            :visible.sync="flags"
+            center>
+            <el-input
+                placeholder="请输入班级号"
+                v-model="grade_name"
+                clearable
+                disabled="">
+            </el-input>
+            <el-input placeholder="请输入教室号" v-model="room_id1" clearable></el-input>
+            <el-input placeholder="请输入课程名" v-model="room_text1" clearable></el-input>
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="flags = false">取 消</el-button>
+            <el-button type="primary" @click="submit1">提交</el-button>
             </span>
         </el-dialog>
     </div>
 </template>
 
 <script>
-import {mapState, mapActions} from "vuex"
+import {mapState} from "vuex"
 export default {
     computed:{
         ...mapState("grade", ["tableData"])
     },
     created(){
-        this.getData()
+        this.getData();
     },
     data() {
         return {
             flag:false,
+            flags:false,
             subject_text:"",
             grade_name:"",
-            room_text:""
+            room_text:"",
+            room_text1:"",
+            room_id1:""
         }
     },
     methods: {
+        // ...mapActions("grade", ["getData", "addClass", "changeClass"]),
+
         handleEdit(index, row) {
             console.log(index, row);
+            this.flags = !this.flags;
         },
         handleDelete(index, row) {
             console.log(index, row);
         },
-        ...mapActions("grade", [
-            "getData"
-        ]),
         clickFn(){
             this.flag = !this.flag
+        },
+        getData(){
+            this.$http.get("/api/manger/grade").then(res=>{
+                this.$store.dispatch("grade/getData", res.data.data)
+            })
+
+        },
+        submit(){
+            this.flag = !this.flag;
+            this.addClass({grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id});
+            this.getData();
+        },
+        submit1(){
+            this.flags = !this.flags;
+            this.changeClass({room_id:this.room_id1, room_text:this.room_text1});
+            this.getData();
         }
-        
     }
 }
 </script>

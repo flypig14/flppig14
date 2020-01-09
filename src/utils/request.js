@@ -67,5 +67,8 @@ export default {
     },
     post(url, params){
         return instance.post(url, params)
+    },
+    put(url, params){
+        return instance.put(url, params)
     }
 }

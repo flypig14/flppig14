@@ -145,13 +145,6 @@ export default {
             data:[],
             token:cookie.get('token'),
             activeName2: 'first',
-<<<<<<< HEAD
-            restaurants: [],
-            state4: '',
-            timeout:  null,
-            input1:"",
-            input2:""
-=======
             value1: '',
             value2: '',
             value3: '',
@@ -169,7 +162,6 @@ export default {
             input6:'',
             input7:'',
             input8:''
->>>>>>> list
         };
     },
     computed:{
