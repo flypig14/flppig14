@@ -49,7 +49,9 @@
                 </template>
             </el-table-column>
             <el-table-column label="操作">
-                <span style="margin-left: 10px ; color:blue">批卷</span>
+                <template slot-scope="scope">
+                    <span style="margin-left: 10px" @click="tack(scope.row.grade_id)"> 批卷 </span>
+                </template>
             </el-table-column>
         </el-table>
 
@@ -101,6 +103,9 @@ export default {
         ]),
         clickFn(){
             this.flag = !this.flag
+        },
+        tack(id){
+            console.log(id)
         }
         
     }
