@@ -23,7 +23,7 @@
                     </el-option>
                 </el-select>
             </label>
-             <el-button type="primary" >
+             <el-button type="primary" @click="search">
                  <i class="el-icon-search"></i>
                  查询
              </el-button>
@@ -86,7 +86,7 @@
             <template slot-scope="scope">
                 
                 <div slot="reference" class="name-wrapper">
-                    <el-tag size="medium">{{ scope.row.end_time }}</el-tag>
+                    {{ scope.row.end_time }}
                 </div>
                
             </template>
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import {mapState, mapActions} from "vuex"
+import {mapState} from "vuex"
 export default {
     created(){
         this.getList()
@@ -126,9 +126,28 @@ export default {
             console.log(1)
             this.curIndex = index 
         },
-        ...mapActions("examlist", ["getList"]),
-        ...mapActions("examlist", ["getData"]),
-        ...mapActions("examlist", ["getType"]),
+        // ...mapActions("examlist", ["getList"]),
+        // ...mapActions("examlist", ["getData"]),
+        // ...mapActions("examlist", ["getType"]),
+        getList(){
+            this.$http.get('/api/exam/exam').then(res=>{
+                this.$store.dispatch("examlist/getList", res.data.exam)
+            })
+        },
+        getType(){
+            this.$http.get('/api/exam/examType').then(res=>{
+                this.$store.dispatch("examlist/getType", res.data.data)
+            })
+        },
+        getData(){
+            this.$http.get('/api/exam/subject').then(res=>{
+                this.$store.dispatch("examlist/getData", res.data.data)
+            })
+        },
+
+        search(){
+
+        }
     }
 
 }

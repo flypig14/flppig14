@@ -1,4 +1,4 @@
-import $http from "../utils/request"
+
 const questiontype = {
     namespaced:true,
     state: {
@@ -11,24 +11,16 @@ const questiontype = {
         
     },
     actions: {
-        getData({commit}){
-            $http.get("/api/exam/getQuestionsType").then(res=>{
-                if(res.data.code === 1){
-                    commit("setlist", res.data.data)
-                }
-            })
-        },
-        setData(state, {text, sort}){
-            console.log({text, sort})
-            $http.get("/api/exam/insertQuestionsType", {text, sort} 
-            ).then(res=>{
-                if(res.data.code === 1){
-                    alert("添加成功")
-                }
-            })
+        getData({commit}, data){
+            // $http.get("/api/exam/getQuestionsType").then(res=>{
+            //     if(res.data.code === 1){
+            commit("setlist", data)
+            // }
         }
-    }
-
+    },
+    
 }
+
+
 
 export default questiontype

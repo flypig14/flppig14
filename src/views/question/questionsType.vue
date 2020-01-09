@@ -41,7 +41,7 @@
 
 <script>
 // import http from "../../utils/request.js"
-import {mapState, mapActions} from "vuex"
+import {mapState} from "vuex"
 import cookie from "js-cookie"
 export default {
     computed:{
@@ -49,7 +49,8 @@ export default {
 
     },
     created(){
-        this.getData()
+        this.getData();
+        
 
     },
     data() {
@@ -62,32 +63,29 @@ export default {
         }
     },    
     methods: {
-        // getData(){
-        //     this.$http.get("/api/exam/getQuestionsType", {header:this.token}).then(res=>{
-        //         if(res.data.code === 1){
-        //             this.tableData = res.data.data
-        //         }
-        //     })
-        // },
-        ...mapActions("questiontype", ["getData"]),
-        ...mapActions("questiontype", ["setData"]),
+        getData(){
+            this.$http.get("/api/exam/getQuestionsType").then(res=>{
+                console.log(res);
+                this.$store.dispatch('questiontype/getData', res.data.data);
+            })
+        },
+        // ...mapActions("questiontype", ["getData"]),
+        // ...mapActions("questiontype", ["setData"]),
 
         clickFn(){
             this.flag = !this.flag
+            
         },
         changeFn(){
-            this.setData({
-                text:this.text,
-                sort:this.sort
+            this.$http.get("/api/exam/insertQuestionsType", {text:this.text, sort:this.sort} 
+            ).then(res=>{
+                if(res.data.code === 1){
+                    this.flag = !this.flag
+                    this.getData();
+                }
             })
-            //     this.$http.get("/api/exam/insertQuestionsType", {text:this.text, sort:this.sort} 
-            //     ).then(res=>{
-            //         if(res.data.code === 1){
-            //             this.getData()
-            //         }
-            //     })
-            this.getData()
-            this.flag = !this.flag
+            
+            // this.getData()
         }
       
     },

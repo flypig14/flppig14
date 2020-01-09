@@ -1,4 +1,4 @@
-import https from '../utils/request'
+
 const examlist = {
     namespaced:true,
     state: {
@@ -18,31 +18,19 @@ const examlist = {
         },
     },
     actions: {
-        getList({commit}){
-            https.get('/api/exam/exam').then(res=>{
-                if(res.data.code === 1){
-                    commit('setList', res.data.exam)
-                }
-            })
+        getList({commit}, data){
+            commit('setList', data)
         },
-        getType({commit}){
-            https.get('/api/exam/examType').then(res=>{
-                if(res.data.code === 1){
-                    commit('setType', res.data.data)
-                    // this.tableData = res.data.data.slice(0, this.page);
-                    // this.total = res.data.data.length;
-                }
-            })
+        getType({commit}, data){
+
+            commit('setType', data)
+
         },
-        getData({commit}){
-            https.get('/api/exam/subject').then(res=>{
-                if(res.data.code === 1){
-                    commit('setData', res.data.data)
-                    // this.tableData = res.data.data.slice(0, this.page);
-                    // this.total = res.data.data.length;
-                }
-            })
-        },
+        getData({commit}, data){
+
+            commit('setData', data)
+
+        }
     },
 };
 export default examlist

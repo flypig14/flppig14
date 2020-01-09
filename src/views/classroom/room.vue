@@ -17,7 +17,7 @@
                 <el-button
                     size="mini"
                     type="danger"
-                    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    @click="handleDelete(scope.row.room_id)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -36,44 +36,76 @@
             <el-button type="primary" @click="submit">提交</el-button>
             </span>
         </el-dialog>
+
+        <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            >
+            <span>这是一段信息</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="sure">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import {mapState, mapActions} from "vuex"
+import {mapState} from "vuex"
 export default {
     computed:{
         ...mapState("room", ["tableData"])
     },
     created(){
         this.getData()
-        
     },
     data(){
         return {
             flag:false,
-            room_text:""
+            room_text:"",
+            dialogVisible:false,
+            room_id:""
         }
     },
     methods:{
         clickFn(){
             this.flag = !this.flag
         },
-        handleEdit(index, row) {
-            console.log(index, row);
+        handleDelete(room_id) {
+            this.dialogVisible = !this.dialogVisible
+            this.room_id = room_id
+            
         },
-        handleDelete(index, row) {
-            console.log(index, row);
+        sure(){
+            let room_id = this.room_id
+            this.$http.delete("/api/manger/room/delete", {room_id}).then(res=>{
+                if(res.data.code === 1){
+                    this.dialogVisible = !this.dialogVisible
+                    this.getData()
+                }
+            })
         },
-        ...mapActions("room", [
-            "getData"
-        ]),
-        ...mapActions("room", [
-            "submitFn"
-        ]),
+        // handleClose(done) {
+        //     this.$confirm('确认关闭？')
+        //         .then(_ => {
+        //         done();
+        //     })
+        //     .catch(_ => {});
+        // },
+        getData(){
+            this.$http.get("/api/manger/room").then(res=>{
+                this.$store.dispatch("room/getData", res.data.data)
+            })
+
+        },
         submit(){
-       
-            this.flag = !this.flag
+            this.$http.post("/api/manger/room", {room_text:this.room_text}).then(res=>{
+                if(res.data.code === 1){
+                    this.getData()
+                    this.flag = !this.flag
+                }
+            })
         }
         
     }

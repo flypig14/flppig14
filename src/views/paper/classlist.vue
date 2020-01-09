@@ -1,6 +1,5 @@
 <template>
     <div class="grade">
-        <el-button type="primary" id="el-button" @click="clickFn">+  添加班级</el-button>
         <el-table
             :data="tableData"
             style="width: 100%">
