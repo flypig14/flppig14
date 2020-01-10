@@ -6,7 +6,7 @@
         <header>
             <label for="">
                 考试类型：
-                <el-select v-model="value">
+                <el-select v-model="exam_name">
                     <el-option
                         v-for="item in type"
                         :key="item.exam_id"
@@ -17,7 +17,7 @@
             </label>
             <label for="">
                 课程：
-                <el-select v-model="text">
+                <el-select v-model="subject_text">
                     <el-option
                         v-for="item in options"
                         :key="item.subject_id"
@@ -26,7 +26,7 @@
                     </el-option>
                 </el-select>
             </label>
-             <el-button type="primary" @click="search">
+             <el-button type="primary" @click="searchFn({exam_name, subject_text})">
                  <i class="el-icon-search"></i>
                  查询
              </el-button>
@@ -95,7 +95,9 @@
             </template>
             </el-table-column>
             <el-table-column label="操作">
-               <span style="margin-left : 10px; color: blue">详情</span>
+                <template slot-scope="scope">
+                <span style="margin-left : 10px; color: blue" @click="detail(scope.row.exam_exam_id)">详情</span>
+                </template>
             </el-table-column>
         </el-table>
         
@@ -104,7 +106,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex"
+import {mapState, mapMutations} from "vuex"
 export default {
     created(){
         this.getList()
@@ -112,24 +114,33 @@ export default {
         this.getType()
     },
     computed:{
-        ...mapState("examlist", ["tableData"]),
-        ...mapState("examlist", ["type"]),
-        ...mapState("examlist", ["options"])
+        ...mapState("examlist", ["tableData", "type", "options", "list"]),
     },
     data(){
         return {
-            value:"",
-            text:"",
+            exam_name:"",
+            subject_text:"",
             liData:["全部", "进行中", "已结束"],
             curIndex:1,
+<<<<<<< HEAD
             
             
+=======
+>>>>>>> list
         }
     },
     methods:{
+        ...mapMutations('examlist', ['searchFn']),
         clickFn(index){
             console.log(1)
-            this.curIndex = index 
+            this.curIndex = index;
+        },
+        detail(id){
+            console.log(id);
+            this.$router.push({
+                path:"/src/views/exam/detail.vue",
+                query:{id:id}
+            })
         },
         
         // ...mapActions("examlist", ["getList"]),
@@ -151,9 +162,6 @@ export default {
             })
         },
 
-        search(){
-
-        }
     }
 
 }

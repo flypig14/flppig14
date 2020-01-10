@@ -13,7 +13,7 @@
             </label>
             <label for="">
                 考试类型：
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="exam_name" placeholder="请选择">
                     <el-option
                         v-for="item in questype"
                         :key="item.exam_id"
@@ -22,7 +22,7 @@
                     </el-option>
                 </el-select>
                 题目类型：
-                <el-select v-model="text" placeholder="请选择">
+                <el-select v-model="questions_type_text" placeholder="请选择">
                     <el-option
                         v-for="item in options"
                         :key="item.questions_type_id"
@@ -30,7 +30,7 @@
                         :value="item.questions_type_text">
                     </el-option>
                 </el-select>
-                  <el-button type="primary">
+                  <el-button type="primary" @click="searchVn(exam_name, questions_type_text)">
                       <i class="el-icon-search"></i>
                       主要按钮
                     </el-button>
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import {mapState, mapActions} from "vuex"
+import {mapState, mapActions, mapMutations} from "vuex"
 export default {
     created(){
         this.getList()
@@ -62,22 +62,20 @@ export default {
         this.getOpt()
     },
     computed:{
-        ...mapState("watch", ["data"]),
-        ...mapState("watch", ["type"]),
-        ...mapState("watch", ["questype"]),
-        ...mapState("watch", ["options"])
+        ...mapState("watch", ["data", "options", "type", "questype", "list"]),
+        ...mapMutations("watch", ["searchVn"])
     },
     data(){
         return {
-            value:"",
-            text:"",
+            exam_name:"",
+            questions_type_text:"",
         }
     },
     methods:{
-        ...mapActions("watch", ["getList"]),
-        ...mapActions("watch", ["getData"]),
-        ...mapActions("watch", ["getType"]),
-        ...mapActions("watch", ["getOpt"])
+        ...mapActions("watch", ["getList", "getOpt", "getType", "getData"]),
+        // searchVn(exam_name, questions_type_text){
+        //     console.log(exam_name, questions_type_text)
+        // }
     }
 
 }

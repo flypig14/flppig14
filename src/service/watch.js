@@ -6,7 +6,8 @@ const watch = {
         data:[],
         type:[],
         questype:[],
-        options:[]
+        options:[],
+        list:[]
     },
     mutations: {
         setList(state, data){
@@ -20,13 +21,25 @@ const watch = {
         },
         setOpt(state, data){
             state.options = data
+        },
+        searchVn(state, {exam_name, questions_type_text}){
+            if(exam_name || questions_type_text){
+                state.data.filter(item=>{
+                    if(item.exam_name === exam_name || item.questions_type_text === questions_type_text){
+                        state.list.push(item);
+                        return state.data = state.list;
+                    }
+                })
+            }
+            console.log(state.list)
         }
     },
     actions: {
         getList({commit}){
             https.get('/api/exam/questions/new').then(res=>{
                 if(res.data.code === 1){
-                    commit('setList', res.data.data)
+                    commit('setList', res.data.data);
+                    console.log(res.data.data)
                     // this.tableData = res.data.data.slice(0, this.page);
                     // this.total = res.data.data.length;
                 }

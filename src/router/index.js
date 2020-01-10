@@ -78,6 +78,12 @@ const routes = [
                 title:"试卷列表"
             }
         }, {
+            path:"/home/detail",
+            component:()=>import("../views/exam/detail.vue"),
+            meta:{
+                title:"试卷列表"
+            }
+        }, {
             path:"/home/grade",
             component:()=>import("../views/classroom/grade.vue"),
             meta:{

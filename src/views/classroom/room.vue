@@ -46,7 +46,11 @@
             :visible.sync="dialogVisible"
             width="30%"
             >
+<<<<<<< HEAD
             <span>确认删除吗</span>
+=======
+            <span>确定要删除该教室吗</span>
+>>>>>>> list
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="sure">确 定</el-button>
