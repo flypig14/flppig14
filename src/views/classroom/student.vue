@@ -1,5 +1,8 @@
 <template>
     <div class="student">
+        <header>
+            {{$route.meta.title}}
+        </header>
         <div class="form">
             <el-input v-model="student_name" placeholder="请输入学生姓名"></el-input>
             <el-input v-model="student_id" placeholder="请输入学生学号"></el-input>
@@ -22,32 +25,31 @@
             <el-button type="primary">搜索</el-button>
             <el-button type="primary">提交</el-button>
         </div>
+        <div class="session">
             <el-table
             :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
             style="width: 100%">
             <el-table-column
                 label="姓名"
-                width="200px"
-                margin-left= "10px">
+                >
                 <template slot-scope="scope">
                     <span style="margin-left: 10px">{{ scope.row.student_name  }}</span>
                 </template>
             </el-table-column>
             <el-table-column
                 label="学号"
-                width="300px">
+                >
                 <template slot-scope="scope">
                     <!-- <el-popover trigger="hover" placement="top"> -->
                         <!-- <p>姓名: {{ scope.row.name }}</p> -->
                         <div slot="reference" class="name-wrapper" style="margin-left : 8px">
-                            {{scope.row.subject_id }}
+                            {{scope.row.student_id }}
                         </div>
                     <!-- </el-popover> -->
                 </template>
             </el-table-column>
             <el-table-column
                 label="班级"
-                width="200px"
                >
                 <template slot-scope="scope">
                     <span style="margin-left: 10px">{{ scope.row.grade_name  }}</span>
@@ -55,7 +57,7 @@
             </el-table-column>
             <el-table-column
                 label="教室"
-                width="300px">
+                >
                 <template slot-scope="scope">
                     <!-- <el-popover trigger="hover" placement="top"> -->
                         <!-- <p>姓名: {{ scope.row.name }}</p> -->
@@ -70,7 +72,6 @@
                 >
                 <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
-                        <p>姓名: {{ scope.row.name }}</p>
                         <div slot="reference" class="name-wrapper" style="margin-left: 10px">
                             {{ scope.row.student_pwd }}
                         </div>
@@ -88,6 +89,7 @@
             layout="prev, pager, next"
             :total="tableData.length">  
         </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -133,10 +135,26 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+    header{
+        width: 100%;
+        height: 60px;
+        line-height: 30px;
+        font-size: 22px;
+        padding: 20px 20px;
+    }
     .form{
         height: 50px;
         display: flex;
         background: #E9EEF3;
+        padding-left: 20px
+    }
+    .session{
+        width: 100%;
+        flex: 1;
+        overflow: hidden;
+        .el-table{
+            margin-left: 20px
+        }
     }
 }
 .el-input,.el-select{

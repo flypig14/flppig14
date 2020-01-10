@@ -13,6 +13,8 @@ import viewPower from '../service/viewPower'
 import watch from '../service/watch'
 import addExam from '../service/addExam'
 import addUser from '../service/addUser'
+import paper from '../service/paper'
+import detail from '../service/detail'
 
 
 Vue.use(Vuex)
@@ -32,6 +34,8 @@ export default new Vuex.Store({
         viewPower,
         watch,
         addExam,
-        addUser
+        addUser,
+        paper,
+        detail
     }
 })

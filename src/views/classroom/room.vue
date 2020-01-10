@@ -1,5 +1,9 @@
 <template>
     <div class="room">
+        <header>
+            {{$route.meta.title}}
+        </header>
+        <div class="session">
         <el-button type="primary" id="el-button" @click="clickFn">+  添加教室</el-button>
         <el-table
             :data="tableData"
@@ -42,12 +46,13 @@
             :visible.sync="dialogVisible"
             width="30%"
             >
-            <span>这是一段信息</span>
+            <span>确认删除吗</span>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="sure">确 定</el-button>
             </span>
         </el-dialog>
+        </div>
     </div>
 </template>
 
@@ -119,6 +124,21 @@ export default {
         height: 100%;
         display: flex;
         flex-direction: column;
+    }
+    header{
+        width: 100%;
+        height: 60px;
+        line-height: 30px;
+        font-size: 22px;
+        padding: 20px 20px;
+    }
+    .session{
+        width: 98%;
+        flex: 1;
+        overflow: hidden;
+        margin: 0 auto;
+        border-radius: 10px;
+        background: #fff;
     }
     #el-button{
         width: 200px;

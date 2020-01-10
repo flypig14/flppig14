@@ -42,12 +42,10 @@ export default {
     post(url, params){
         return instance.post(url, params)
     },
-<<<<<<< HEAD
     delete(url, params){
-        return instance.delete(url, {data:params});
-=======
+        return instance.delete(url, {data:params})
+    },
     put(url, params){
         return instance.put(url, params)
->>>>>>> list
     }
 }

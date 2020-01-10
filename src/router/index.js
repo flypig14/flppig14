@@ -101,6 +101,18 @@ const routes = [
             meta:{
                 title:"待批班级"
             }
+        }, {
+            path:"/home/paper",
+            component:()=>import("../views/paper/paper.vue"),
+            meta:{
+                title:""
+            }
+        }, {
+            path:"/home/detail",
+            component:()=>import("../views/paper/detail.vue")
+        }, {
+            path:"/home/create",
+            component:()=>import("../views/exam/create.vue"),
         }]
     },
     {

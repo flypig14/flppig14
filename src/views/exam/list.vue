@@ -1,5 +1,8 @@
 <template>
     <div class="list">
+        <div class="head">
+            {{$route.meta.title}}
+        </div>
         <header>
             <label for="">
                 考试类型：
@@ -38,20 +41,20 @@
             </ul>
         </div>
         <p></p>
-       
+        <div class="session">
         <el-table
             :data="tableData"
             style="width: 100%">
             <el-table-column
             label="试卷信息"
-            width="350px">
+            >
             <template slot-scope="scope">
                 <span style="margin-left: 10px">{{ scope.row.title }}</span>
             </template>
             </el-table-column>
             <el-table-column
             label="班级"
-            width="350px"
+            
             id="table">
             <template slot-scope="scope">
                 <div class="exam">
@@ -68,21 +71,21 @@
             </el-table-column>
             <el-table-column
             label="创建人"
-            width="150px">
+            >
             <template slot-scope="scope">
                 <span style="margin-left: 10px">{{ scope.row.user_name }}</span>
             </template>
             </el-table-column>
             <el-table-column
             label="开始时间"
-            width="200px">
+            >
             <template slot-scope="scope">
                 <span style="margin-left: 10px">{{ scope.row.start_time }}</span>
             </template>
             </el-table-column>
             <el-table-column
             label="结束时间"
-            width="200px">
+            >
             <template slot-scope="scope">
                 
                 <div slot="reference" class="name-wrapper">
@@ -95,7 +98,8 @@
                <span style="margin-left : 10px; color: blue">详情</span>
             </el-table-column>
         </el-table>
-       
+        
+       </div>
     </div>
 </template>
 
@@ -119,6 +123,7 @@ export default {
             liData:["全部", "进行中", "已结束"],
             curIndex:1,
             
+            
         }
     },
     methods:{
@@ -126,6 +131,7 @@ export default {
             console.log(1)
             this.curIndex = index 
         },
+        
         // ...mapActions("examlist", ["getList"]),
         // ...mapActions("examlist", ["getData"]),
         // ...mapActions("examlist", ["getType"]),
@@ -159,10 +165,19 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+
+    .head{
+        width: 100%;
+        height: 60px;
+        line-height: 30px;
+        font-size: 22px;
+        padding: 20px 20px;
+    }
     header{
         width: 100%;
         height: 80px;
         background: #fff;
+        padding-top:20px;
         label{
             font-size: 15px;
             margin: 0 40px;
@@ -176,6 +191,11 @@ export default {
     .el-button{
         width: 150px;
     }
+}
+.session{
+    width: 100%;
+    flex: 1;
+    overflow: auto;
 }
 .title{
     width: 100%;

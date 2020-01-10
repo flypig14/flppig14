@@ -1,11 +1,15 @@
 <template>
     <div class="grade">
+        <header>
+            {{$route.meta.title}}
+        </header>
+        <div class="session">
         <el-table
             :data="tableData"
             style="width: 100%">
             <el-table-column
                 label="班级名"
-                width="200px"
+              
                 margin-left= "10px">
                 <template slot-scope="scope">
                     <span style="margin-left: 10px">{{ scope.row.grade_name  }}</span>
@@ -13,7 +17,7 @@
             </el-table-column>
             <el-table-column
                 label="课程名"
-                width="400px">
+               >
                 <template slot-scope="scope">
                     <!-- <el-popover trigger="hover" placement="top"> -->
                         <!-- <p>姓名: {{ scope.row.name }}</p> -->
@@ -26,7 +30,7 @@
             </el-table-column>
             <el-table-column
                 label="阅卷管理"
-                width="200px"
+              
                 margin-left= "10px">
             </el-table-column>
             <el-table-column
@@ -39,7 +43,7 @@
             </el-table-column>
             <el-table-column
                 label="成材率"
-                width="200px">
+                >
                 <template slot-scope="scope">
                    
                         <div slot="reference" class="name-wrapper" style="margin-left: 10px">
@@ -50,32 +54,17 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <span style="margin-left: 10px" @click="tack(scope.row.grade_id)"> 批卷 </span>
+                    <span style="margin-left: 10px; color: blue; cursor: pointer;" @click="handleEdit(scope.$index, scope.row)"> 批卷 </span>
                 </template>
             </el-table-column>
         </el-table>
-
-        <el-dialog
-            title="提示"
-            :visible.sync="flag"
-            center>
-            <el-input
-                placeholder="请输入试题名称"
-                v-model="grade_name"
-                clearable>
-            </el-input>
-            <el-input placeholder="请输入试题序号" v-model="room_text" show-password></el-input>
-            <el-input placeholder="请输入试题序号" v-model="subject_text" show-password></el-input>
-            <span slot="footer" class="dialog-footer">
-            <el-button @click="flag = false">取 消</el-button>
-            <el-button type="primary">提交</el-button>
-            </span>
-        </el-dialog>
+        
+        </div>
     </div>
 </template>
 
 <script>
-import {mapState, mapActions} from "vuex"
+import {mapState} from "vuex"
 export default {
     computed:{
         ...mapState("grade", ["tableData"])
@@ -88,26 +77,33 @@ export default {
             flag:false,
             subject_text:"",
             grade_name:"",
-            room_text:""
+            room_text:"",
+            
         }
     },
     methods: {
         handleEdit(index, row) {
+            
+            this.$router.push({
+                path:"/home/paper",
+                query:{
+                    id:row.grade_id,
+                    grade_name:row.grade_name
+                }
+            })
             console.log(index, row);
         },
-        handleDelete(index, row) {
-            console.log(index, row);
+        
+        getData(){
+            this.$http.get("/api/manger/grade").then(res=>{
+                this.$store.dispatch("grade/getData", res.data.data)
+            })
+
         },
-        ...mapActions("grade", [
-            "getData"
-        ]),
         clickFn(){
             this.flag = !this.flag
         },
-        tack(id){
-            console.log(id)
-        }
-        
+       
     }
 }
 </script>
@@ -118,6 +114,22 @@ export default {
         height: 100%;
         display: flex;
         flex-direction: column;
+       
+    }
+    header{
+        width: 100%;
+        height: 60px;
+        line-height: 30px;
+        font-size: 22px;
+        padding: 20px 20px;
+    }
+    .session{
+        width: 98%;
+        flex: 1;
+        overflow: hidden;
+        margin: 0 auto;
+        border-radius: 10px;
+        background: #fff;
     }
     #el-button{
         width: 200px;

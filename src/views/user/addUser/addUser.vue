@@ -1,5 +1,8 @@
 <template>
     <div class="addUser">
+        <header>
+             {{$route.meta.title}}
+        </header>
         <!-- 第一个 -->
         <el-tabs v-model="activeName2" type="border-card" @tab-click="handleClick" class="tab">
         <el-tab-pane label="添加用户" name="first" class="tab1">
@@ -207,6 +210,12 @@ export default {
 </script>
 
 <style lang="scss">
+header{
+  width: 100%;
+  height: 60px;
+  line-height: 30px;
+  font-size: 22px;
+}
 .tab{
     width:33%;
     display: inline-block;

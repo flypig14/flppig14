@@ -25,7 +25,7 @@ const addExam = {
             })
         },
         getOpt({commit}){
-            https.get('/api/exam/getQuestionsType').then(res=>{
+            https.get('/api/exam/subject').then(res=>{
                 if(res.data.code === 1){
                     commit('setOpt', res.data.data)
                     // this.tableData = res.data.data.slice(0, this.page);

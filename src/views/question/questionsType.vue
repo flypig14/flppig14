@@ -1,8 +1,14 @@
 <template>
     <div class="type">
-        <el-button type="primary" @click="clickFn">
-           + 添加类型
-        </el-button>
+        <header>
+            {{$route.meta.title}}
+        </header>
+        <p>
+            <el-button type="primary" @click="clickFn">
+                + 添加类型
+            </el-button>
+        </p>
+        
             <el-table
                 :data="tableData"
                 :header-row-style="{background:'#000'}"
@@ -98,12 +104,25 @@ export default {
         height: 100%;
         display: flex;
         flex-direction: column;
-    }
+            header{
+                width: 100%;
+                height: 60px;
+                line-height: 30px;
+                font-size: 22px;
+                padding: 20px 20px;
+            }
+        }
+        p{
+            width: 100%;
+            height: 60px;
+            background: #fff;
+            margin-bottom: 20px;
+        }
     .el-button{
         width: 200px;
         height: 40px;
         font-size: 20px;
-        margin: 20px 0 20px 20px;
+        margin: 10px 0 20px 20px;
     }
     .el-input{
             margin: 20px auto;

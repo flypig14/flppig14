@@ -1,12 +1,15 @@
 <template>
     <div class="grade">
+        <header>
+            {{$route.meta.title}}
+        </header>
+        <div class="session">
         <el-button type="primary" id="el-button" @click="clickFn">+  添加班级</el-button>
         <el-table
             :data="tableData"
             style="width: 100%">
             <el-table-column
                 label="班级名"
-                width="300px"
                 margin-left= "10px">
                 <template slot-scope="scope">
                     <span style="margin-left: 10px">{{ scope.row.grade_name  }}</span>
@@ -26,7 +29,7 @@
             </el-table-column>
             <el-table-column
                 label="教室号"
-                width="300px">
+                >
                 <template slot-scope="scope">
                    
                         <div slot="reference" class="name-wrapper" style="margin-left: 10px">
@@ -58,8 +61,8 @@
                 v-model="grade_name"
                 clearable>
             </el-input>
-            <el-input placeholder="请输入教室号" v-model="room_text" show-password></el-input>
-            <el-input placeholder="请输入课程名" v-model="subject_text" show-password></el-input>
+            <el-input placeholder="请输入教室号" v-model="room_id" show-password></el-input>
+            <el-input placeholder="请输入课程名" v-model="subject_id" show-password></el-input>
             <span slot="footer" class="dialog-footer">
             <el-button @click="flag = false">取 消</el-button>
             <el-button type="primary" @click="submit">提交</el-button>
@@ -83,6 +86,7 @@
             <el-button type="primary" @click="submit1">提交</el-button>
             </span>
         </el-dialog>
+        </div>
     </div>
 </template>
 
@@ -99,11 +103,12 @@ export default {
         return {
             flag:false,
             flags:false,
-            subject_text:"",
+            subject_id:"",
             grade_name:"",
             room_text:"",
             room_text1:"",
-            room_id1:""
+            room_id1:"",
+            room_id:""
         }
     },
     methods: {
@@ -127,7 +132,13 @@ export default {
         },
         submit(){
             this.flag = !this.flag;
-            this.addClass({grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id});
+            this.$http.post("/api/manger/grade", {grade_name:this.grade_name, room_id:this.room_id, subject_id:this.subject_id}).then(res=>{
+                if(res.data.code === 1){
+                    alert(res.data.msg)
+                    this.getData()
+                }
+            })
+            // this.addClass({grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id});
             this.getData();
         },
         submit1(){
@@ -145,6 +156,21 @@ export default {
         height: 100%;
         display: flex;
         flex-direction: column;
+    }
+    header{
+        width: 100%;
+        height: 60px;
+        line-height: 30px;
+        font-size: 22px;
+        padding: 20px 20px;
+    }
+    .session{
+        width: 98%;
+        flex: 1;
+        overflow: hidden;
+        margin: 0 auto;
+        border-radius: 10px;
+        background: #fff;
     }
     #el-button{
         width: 200px;

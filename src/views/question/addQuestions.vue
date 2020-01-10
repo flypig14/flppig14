@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="add">
+      <header>
+          {{$route.meta.title}}
+      </header>
+      <div class="session">
       <p>
           题目信息
       </p>
@@ -48,6 +52,7 @@
   </el-select>
   <quill-editor v-model="content" ref="myQuillEditor" class="editor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @change="onEditorChange($event)">
     </quill-editor>
+    </div>
   </div>
 </template> 
 <script>
@@ -105,6 +110,27 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.add{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+header{
+  width: 100%;
+  height: 60px;
+  line-height: 30px;
+  font-size: 22px;
+  padding: 20px 20px;
+}
+.session{
+  width: 98%;
+  flex: 1;
+  overflow: hidden;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: #fff;
+}
 .artic{
   margin-top: 100px;
 }

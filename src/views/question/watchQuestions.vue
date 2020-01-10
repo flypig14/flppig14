@@ -1,5 +1,8 @@
 <template>
     <div class="watch">
+        <div class="head">
+             {{$route.meta.title}}
+        </div>
         <header>
             <label for="">
                 <h4>所有课程：</h4> 
@@ -86,19 +89,29 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+}
+.head{
+    width: 100%;
+    height: 60px;
+    line-height: 30px;
+    font-size: 22px;
+    padding: 20px 20px;
 }
 header{
     width: 100%;
     height: 100px;
+    background: #fff;
+    font-size: 14px;
     label{
         width: 100%;
         height: 50px;
         display: flex;
-        font-size: 14px;
+        // font-size: 14px;
         margin-left: 50px;
         line-height: 50px;
         span{
-            margin-left: 20px;
+            margin-left: 10px;
         }
     }
 }
@@ -114,7 +127,7 @@ header{
 }
 p{
     width: 100%;
-    height: 5px;
+    height: 10px;
     background: #eee;
 }
 .listbox{
@@ -123,6 +136,7 @@ p{
     display: flex;
     font-size: 14px;
     border-bottom: 1px solid #eee;
+    background: #fff;
     .left{
         width: 90%;
         height: 100%;

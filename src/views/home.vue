@@ -124,14 +124,14 @@
 
         </el-aside>
         <el-main>
-          <div class="box">
-            <header>
+         
+            <!-- <header>
               {{$route.meta.title}}
             </header>
-            <main>
+            <main> -->
               <router-view></router-view>
-            </main>
-          </div>
+            <!-- </main> -->
+         
         </el-main>
       </el-container>
     </el-container>
@@ -172,7 +172,7 @@ export default {
         width: 20%;
         height: 60px;
         display: flex;
-       
+        font-size: 15px;
         .user{
             width: 120px;
             height: 60px;
@@ -222,6 +222,7 @@ export default {
     position: fixed;
     top: 60px;
     left: 0;
+    z-index: 999;
     p{
         width: 100%;
         height: 90px;
@@ -244,35 +245,10 @@ export default {
     color: #333;
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 60px 0 0 200px;
+    padding: 60px 0 0 200px;
+    overflow: hidden;
   }
-  .box{
-      width: 96%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      margin: 0 auto;
-      header{
-          width: 100%;
-          height: 80px;
-          line-height: 80px;
-          font-size:25px;
-      }
-      main{
-          flex:1;
-          width: 100%;
-          // overflow: auto;
-        
-          background: #fff;
-      }
-      footer{
-        width: 100%;
-        height: 50px;
-        background: #0ff;
-      }
-  }
+
   .el-menu{
       background: #222a40;
      a{
