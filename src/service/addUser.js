@@ -34,7 +34,7 @@ const addUser = {
         },
         //更新用户
         upDate(state, {user_name, user_pwd, user_id}){
-            https.post('/api/user/user', {user_name, user_pwd, user_id}).then(res=>{
+            https.put('/api/user/user', {user_name, user_pwd, user_id}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
                 }else{

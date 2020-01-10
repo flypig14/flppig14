@@ -4,7 +4,8 @@ const examlist = {
     state: {
         tableData:[],
         type:[],
-        options:[]
+        options:[],
+        list:[],
     },
     mutations: {
         setList(state, data){
@@ -16,6 +17,19 @@ const examlist = {
         setData(state, data){
             state.options = data
         },
+        searchFn(state, {exam_name, subject_text}){
+            console.log(state.tableData)
+            if(exam_name || subject_text){
+                state.tableData.filter(item=>{
+                    if(item.exam_name === exam_name || item.subject_text === subject_text){
+                        state.list.push(item);
+                        console.log(state.list)
+                        return state.tableData = state.list;
+                        
+                    }
+                })
+            }
+        }
     },
     actions: {
         getList({commit}, data){

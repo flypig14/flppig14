@@ -52,14 +52,30 @@
         <el-dialog
             title="提示"
             :visible.sync="flag"
-            center>
+            center
+            class="dialog">
             <el-input
                 placeholder="请输入班级号"
                 v-model="grade_name"
-                clearable>
+                clearable
+                class="ipt">
             </el-input>
-            <el-input placeholder="请输入教室号" v-model="room_text" show-password></el-input>
-            <el-input placeholder="请输入课程名" v-model="subject_text" show-password></el-input>
+            <el-select v-model="value1" placeholder="请选择教室号" class="select1">
+            <el-option
+            v-for="item in classData"
+            :key="item.room_id"
+            :label="item.room_text"
+            :value="item.room_text">
+            </el-option>
+            </el-select>
+            <el-select v-model="value2" placeholder="课程名" class="select2">
+            <el-option
+            v-for="item in nameData"
+            :key="item.subject_id"
+            :label="item.subject_text"
+            :value="item.subject_text">
+            </el-option>
+            </el-select>
             <span slot="footer" class="dialog-footer">
             <el-button @click="flag = false">取 消</el-button>
             <el-button type="primary" @click="submit">提交</el-button>
@@ -69,15 +85,31 @@
         <el-dialog
             title="提示"
             :visible.sync="flags"
-            center>
+            center
+            class="dialog">
             <el-input
                 placeholder="请输入班级号"
                 v-model="grade_name"
                 clearable
-                disabled="">
+                disabled=""
+                class="ipt">
             </el-input>
-            <el-input placeholder="请输入教室号" v-model="room_id1" clearable></el-input>
-            <el-input placeholder="请输入课程名" v-model="room_text1" clearable></el-input>
+            <el-select v-model="value3" placeholder="请选择教室号" class="select1">
+            <el-option
+            v-for="item in classData"
+            :key="item.room_id"
+            :label="item.room_text"
+            :value="item.room_text">
+            </el-option>
+            </el-select>
+            <el-select v-model="value4" placeholder="课程名" class="select2">
+            <el-option
+            v-for="item in nameData"
+            :key="item.subject_id"
+            :label="item.subject_text"
+            :value="item.subject_text">
+            </el-option>
+            </el-select>
             <span slot="footer" class="dialog-footer">
             <el-button @click="flags = false">取 消</el-button>
             <el-button type="primary" @click="submit1">提交</el-button>
@@ -90,31 +122,52 @@
 import {mapState} from "vuex"
 export default {
     computed:{
-        ...mapState("grade", ["tableData"])
+        ...mapState("grade", ["tableData", "classData", "nameData"])
     },
     created(){
         this.getData();
+        this.getClass();
+        this.getName();
     },
     data() {
         return {
             flag:false,
             flags:false,
-            subject_text:"",
-            grade_name:"",
-            room_text:"",
+            value1:'',
+            value2:'',
+            value3:'',
+            value4:'',
             room_text1:"",
-            room_id1:""
+            room_id1:"",
+            grade_id:'',
+            grade_name:'',
+            subject_id:'',
+            room_id:''
         }
     },
     methods: {
         // ...mapActions("grade", ["getData", "addClass", "changeClass"]),
-
         handleEdit(index, row) {
             console.log(index, row);
+            this.value3 = row.room_text;
+            this.value4 = row.subject_text;
+            this.grade_name = row.grade_name;
+            this.grade_id = row.grade_id;
+            this.grade_name = row.grade_name;
+            this.subject_id = row.subject_id;
+            this.room_id = row.room_id;
             this.flags = !this.flags;
         },
         handleDelete(index, row) {
             console.log(index, row);
+            this.$http.delete('/api/manger/grade/delete', {grade_id:row.grade_id}).then(res=>{
+                if(res.data.code === 1){
+                    this.getData();
+                    alert(res.data.msg)
+                }else{
+                    console.log(res)
+                }
+            })
         },
         clickFn(){
             this.flag = !this.flag
@@ -123,17 +176,38 @@ export default {
             this.$http.get("/api/manger/grade").then(res=>{
                 this.$store.dispatch("grade/getData", res.data.data)
             })
-
+        },
+        getClass(){
+            this.$http.get('/api/manger/room').then(res=>{
+                this.$store.dispatch("grade/getClass", res.data.data)
+            })
+        },
+        getName(){
+            this.$http.get('/api/exam/subject').then(res=>{
+                this.$store.dispatch("grade/getName", res.data.data)
+            })
         },
         submit(){
             this.flag = !this.flag;
-            this.addClass({grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id});
-            this.getData();
+            this.$http.post('/api//manger/grade', {grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id}).then(res=>{
+                if(res.data.code === 1){
+                    this.getData();
+                    alert(res.data.msg)
+                }else{
+                    console.log(res)
+                }
+            })
         },
         submit1(){
             this.flags = !this.flags;
-            this.changeClass({room_id:this.room_id1, room_text:this.room_text1});
-            this.getData();
+            this.$http.put('/api/manger/grade/update', {grade_id:this.grade_id, grade_name:this.grade_name, subject_id:this.subject_id, room_id:this.room_id}).then(res=>{
+                if(res.data.code === 1){
+                    this.getData();
+                    alert(res.data.msg)
+                }else{
+                    console.log(res)
+                }
+            })
         }
     }
 }
@@ -155,6 +229,20 @@ export default {
     .el-input{
             margin: 20px auto;
         
+    }
+    .dialog{
+        .ipt{
+            width:90%;
+        }
+        .select1{
+            width:90%;
+            display: block;
+        }
+        .select2{
+            width:90%;
+            display: block;
+            margin-top: 20px;
+        }
     }
 
 </style>

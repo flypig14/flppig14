@@ -3,7 +3,7 @@
         <div class="form">
             <el-input v-model="student_name" placeholder="请输入学生姓名"></el-input>
             <el-input v-model="student_id" placeholder="请输入学生学号"></el-input>
-            <el-select v-model="value" placeholder="请选择教室号">
+            <el-select v-model="grade_name" placeholder="班级名">
                 <el-option
                     v-for="item in grade"
                     :key="item.grade_id"
@@ -11,7 +11,7 @@
                     :value="item.grade_name">
                 </el-option>
             </el-select>
-            <el-select v-model="text" placeholder="班级名">
+            <el-select v-model="room_text" placeholder="请选择教室号">
                 <el-option
                     v-for="item in room"
                     :key="item.room_id"
@@ -19,8 +19,8 @@
                     :value="item.room_text">
                 </el-option>
             </el-select>
-            <el-button type="primary">搜索</el-button>
-            <el-button type="primary">提交</el-button>
+            <el-button type="primary" @click="serachFn({student_name, student_id, grade_name, room_text}  )">搜索</el-button>
+            <el-button type="primary">重置</el-button>
         </div>
             <el-table
             :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
@@ -40,7 +40,7 @@
                     <!-- <el-popover trigger="hover" placement="top"> -->
                         <!-- <p>姓名: {{ scope.row.name }}</p> -->
                         <div slot="reference" class="name-wrapper" style="margin-left : 8px">
-                            {{scope.row.subject_id }}
+                            {{scope.row.student_id }}
                         </div>
                     <!-- </el-popover> -->
                 </template>
@@ -78,7 +78,9 @@
                 </template>
             </el-table-column>
             <el-table-column label="操作">
-               <span style="margin-left : 10px">删除</span>
+                <template slot-scope="scope">
+                    <span style="margin-left : 10px" @click="deleteList(scope.row)">删除</span>
+                </template>
             </el-table-column>
         </el-table>
         <el-pagination
@@ -92,7 +94,7 @@
 </template>
 
 <script>
-import {mapState, mapActions} from "vuex"
+import {mapState, mapActions, mapMutations} from "vuex"
 export default {
     created(){
         this.getData()
@@ -100,28 +102,33 @@ export default {
         this.getroom()
     },
     computed:{
-        ...mapState("student", ["tableData"]),
-        ...mapState("student", ["grade"]),
-        ...mapState("student", ["room"])
+        ...mapState("student", ["tableData", "grade", "room", "list"]),
     },
     data(){
         return {
             student_name:"",
             student_id:"",
-            value:"",
-            text: '',
+            grade_name:"",
+            room_text: "",
             currentPage:1, //初始页
-            pagesize:20,    //    每页的数据
+            pagesize:20,
         }
     },
-    methods:{ 
-        ...mapActions("student", ["getData"]),
-        ...mapActions("student", ["getgrade"]),
-        ...mapActions("student", ["getroom"]),
+    methods:{
+        ...mapMutations('student', ['serachFn']),
+        ...mapActions("student", ["getgrade", "getroom", "delList"]),
         handleCurrentChange: function(currentPage){
             this.currentPage = currentPage;
         },
-        
+        getData(){
+            this.$http.get("/api/manger/student").then(res=>{
+                this.$store.dispatch('student/getData', res.data.data)
+            })
+        },
+        deleteList(row){
+            this.delList({id:row.student_id});
+            this.getData()
+        },   
     }
 }
   
