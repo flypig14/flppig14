@@ -63,10 +63,6 @@
                 clearable
                 class="ipt">
             </el-input>
-<<<<<<< HEAD
-            <el-input placeholder="请输入教室号" v-model="room_id" show-password></el-input>
-            <el-input placeholder="请输入课程名" v-model="subject_id" show-password></el-input>
-=======
             <el-select v-model="value1" placeholder="请选择教室号" class="select1">
             <el-option
             v-for="item in classData"
@@ -83,7 +79,6 @@
             :value="item.subject_text">
             </el-option>
             </el-select>
->>>>>>> list
             <span slot="footer" class="dialog-footer">
             <el-button @click="flag = false">取 消</el-button>
             <el-button type="primary" @click="submit">提交</el-button>
@@ -142,14 +137,6 @@ export default {
         return {
             flag:false,
             flags:false,
-<<<<<<< HEAD
-            subject_id:"",
-            grade_name:"",
-            room_text:"",
-            room_text1:"",
-            room_id1:"",
-            room_id:""
-=======
             value1:'',
             value2:'',
             value3:'',
@@ -160,7 +147,6 @@ export default {
             grade_name:'',
             subject_id:'',
             room_id:''
->>>>>>> list
         }
     },
     methods: {
@@ -207,16 +193,6 @@ export default {
         },
         submit(){
             this.flag = !this.flag;
-<<<<<<< HEAD
-            this.$http.post("/api/manger/grade", {grade_name:this.grade_name, room_id:this.room_id, subject_id:this.subject_id}).then(res=>{
-                if(res.data.code === 1){
-                    alert(res.data.msg)
-                    this.getData()
-                }
-            })
-            // this.addClass({grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id});
-            this.getData();
-=======
             this.$http.post('/api//manger/grade', {grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id}).then(res=>{
                 if(res.data.code === 1){
                     this.getData();
@@ -225,7 +201,6 @@ export default {
                     console.log(res)
                 }
             })
->>>>>>> list
         },
         submit1(){
             this.flags = !this.flags;

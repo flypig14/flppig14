@@ -15,6 +15,7 @@ import addExam from '../service/addExam'
 import addUser from '../service/addUser'
 import paper from '../service/paper'
 import detail from '../service/detail'
+import pushList from '../service/pushList'
 
 
 Vue.use(Vuex)
@@ -36,6 +37,7 @@ export default new Vuex.Store({
         addExam,
         addUser,
         paper,
-        detail
+        detail,
+        pushList
     }
 })

@@ -26,6 +26,12 @@ const routes = [
                 title:"查看试题"
             }
         }, {
+            path:"/home/watchDetail",
+            component:()=>import("../views/question/watchDetail.vue"),
+            meta:{
+                title:"试题详情"
+            }
+        }, {
             path:"/home/addUser",
             component:()=>import("../views/user/addUser/addUser.vue"),
             meta:{

@@ -27,7 +27,7 @@ export default {
     methods:{
         loginFn(){
             if(!this.user_name.trim() && !this.user_pwd.trim()){
-                alert("不能为空")
+               
             }else{
                 axios.post("/api/user/login", {
                     user_name:this.user_name,
@@ -35,7 +35,8 @@ export default {
                 }).then(res=>{
                     if(res.data.code === 1){
                         cookie.set("token", res.data.token)
-                        this.$router.push("/home")
+                        this.$router.push("/home");
+                        cookie.set('data', res.data.data)
                     }else{
                         alert(res.data.msg)
                     }

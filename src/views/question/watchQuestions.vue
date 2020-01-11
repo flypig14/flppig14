@@ -47,7 +47,7 @@
                 </span>
                 <span>{{v.user_name}} 发布</span>
             </div>
-            <div class="right">编辑</div>
+            <div class="right" @click="changes(v.questions_id)">编辑</div>
         </div>
     </div>
 </template>
@@ -73,6 +73,13 @@ export default {
     },
     methods:{
         ...mapActions("watch", ["getList", "getOpt", "getType", "getData"]),
+        changes(id){
+            console.log(id)
+            this.$router.push({
+                path:'/home/watchDetail',
+                query:{id:id}
+            })
+        }
         // searchVn(exam_name, questions_type_text){
         //     console.log(exam_name, questions_type_text)
         // }

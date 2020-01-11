@@ -139,7 +139,13 @@
 </template>
 
 <script>
+import cookie from "js-cookie"
 export default {
+    data(){
+        return {
+            data:cookie.get('data')
+        }
+    }
 
 }
 </script>
