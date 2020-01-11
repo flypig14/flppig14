@@ -20,6 +20,12 @@ const routes = [
                 title:"试题分类"
             }
         }, {
+            path:"/home/quesDetail",
+            component:()=>import("../views/question/quesDetail.vue"),
+            meta:{
+                title:"编辑"
+            }
+        }, {
             path:"/home/watchQuestions",
             component:()=>import("../views/question/watchQuestions.vue"),
             meta:{
@@ -114,8 +120,8 @@ const routes = [
                 title:""
             }
         }, {
-            path:"/home/detail",
-            component:()=>import("../views/paper/detail.vue")
+            path:"/home/paperdetail",
+            component:()=>import("../views/paper/paperdetail.vue")
         }, {
             path:"/home/create",
             component:()=>import("../views/exam/create.vue"),

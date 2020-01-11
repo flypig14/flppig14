@@ -7,7 +7,7 @@
             <router-link to="/home/showUser/apiPower" tag="span">api接口权限</router-link>
             <router-link to="/home/showUser/apiRelation" tag="span">身份和api接口关系</router-link>
             <router-link to="/home/showUser/intoPower" tag="span">进入接口权限</router-link>
-            <router-link to="/home/showUser/viewPower" tag="span">身份和视图权限关系</router-link>qqqq
+            <router-link to="/home/showUser/viewPower" tag="span">身份和视图权限关系</router-link>
         </div>
         <div class="container">
             <router-view/>

@@ -6,6 +6,7 @@ const examlist = {
         type:[],
         options:[],
         list:[],
+        detail:[]
     },
     mutations: {
         setList(state, data){
@@ -29,7 +30,11 @@ const examlist = {
                     }
                 })
             }
+        },
+        setDetail(state, payload){
+            state.detail = payload
         }
+        
     },
     actions: {
         getList({commit}, data){
@@ -43,7 +48,9 @@ const examlist = {
         getData({commit}, data){
 
             commit('setData', data)
-
+        },
+        getDetail({commit}, data){
+            commit("setDetail", data)
         }
     },
 };

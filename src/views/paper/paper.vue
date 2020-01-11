@@ -131,7 +131,7 @@ export default {
         },
         handleEdit(index, row){
             this.$router.push({
-                path:"/home/detail",
+                path:"/home/paperdetail",
                 query:{
                     id:row.exam_student_id
                 }

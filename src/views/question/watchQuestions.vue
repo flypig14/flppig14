@@ -6,12 +6,12 @@
         <header>
             <label for="">
                 <h4>所有课程：</h4> 
-                <span>All</span>
-                <span v-for="(v,i) in type" :key="i">
+                <span @click="whole" :class="{active : flag === true}">All</span>
+                <span v-for="(v,i) in type" :key="i" :class="[flv ? 'active' : '']">
                     {{v.subject_text}}
                 </span>
             </label>
-            <label for="">
+            <div class="select">
                 考试类型：
                 <el-select v-model="exam_name" placeholder="请选择">
                     <el-option
@@ -34,7 +34,7 @@
                       <i class="el-icon-search"></i>
                       主要按钮
                     </el-button>
-            </label>
+            </div>
         </header>
         <p></p>
         <div class="listbox" v-for="(v,i) in data" :key="i">
@@ -47,7 +47,7 @@
                 </span>
                 <span>{{v.user_name}} 发布</span>
             </div>
-            <div class="right">编辑</div>
+            <div class="right" style="color : blue" @click="$router.push('/home/quesDetail')">编辑</div>
         </div>
     </div>
 </template>
@@ -69,10 +69,22 @@ export default {
         return {
             exam_name:"",
             questions_type_text:"",
+            flag:false,
+            curIndex:null,
+            flv:false
         }
     },
     methods:{
         ...mapActions("watch", ["getList", "getOpt", "getType", "getData"]),
+        whole(){
+            this.flag = !this.flag
+            if(this.flag){
+                this.flv = !this.flv
+            }else{
+                this.flv = !this.flv
+            }
+        },
+        
         // searchVn(exam_name, questions_type_text){
         //     console.log(exam_name, questions_type_text)
         // }
@@ -105,13 +117,34 @@ header{
         width: 100%;
         height: 50px;
         display: flex;
-        // font-size: 14px;
-        margin-left: 50px;
-        line-height: 50px;
+        margin-left: 10px;
+        // line-height: 50px;
+         overflow: hidden;
+
+        h4{
+            margin: 20px 25px;
+        }
         span{
-            margin-left: 10px;
+            height: 20px;
+            margin: 20px 10px 20px 0;
+           
         }
     }
+    .select{
+        width: 80%;
+        height: 50px;
+        margin-left: 34px;
+        line-height: 50px;
+        overflow: hidden;
+    }
+}
+.active{
+    background: #0ff;
+    color: #fff;
+}
+.hover{
+    background: #0ff;
+    color: #fff;
 }
 .el-button{
     width: 150px;
@@ -120,7 +153,8 @@ header{
 }
 .el-select,.el-input{
     width: 300px;
-    margin: 0 20px;
+    // margin: 0 10px;
+    margin-right: 60px;
     height: 20px !important;
 }
 p{
@@ -140,6 +174,7 @@ p{
         height: 100%;
         display: flex;
         flex-direction: column;
+        padding-left: 30px;
         span{
             width: 100%;
             height: 30%;

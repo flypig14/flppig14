@@ -7,7 +7,12 @@
                 </div>
                 <div class="el-right">
                     <p class="user" >
-                       <span>欢迎</span>
+                          <el-col :span="12">
+                            <div class="demo-basic--circle">
+                              <div class="block"><el-avatar :size="40" :src="circleUrl"></el-avatar></div>
+                            </div>
+                          </el-col> 
+                       <span>w916peach</span>
                         <ul class="selectList">
                             <li>个人中心</li>
                             <li>我的班级</li>
@@ -140,7 +145,11 @@
 
 <script>
 export default {
-
+    data(){
+        return {
+            circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        }
+    }
 }
 </script>
 
@@ -150,6 +159,9 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+.block{
+  margin: 10px 5px 0 0;
 }
  .el-header {
     background-color: #fcfcfc;

@@ -50,8 +50,6 @@ const student = {
         delList(state, {id}){
             $http.delete(`/api/manger/student/${id}`).then(res=>{
                 if(res.data.code === 1){
-                    alert(res.data.msg);
-                }else{
                     console.log(res)
                 }
             })

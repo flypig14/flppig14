@@ -63,16 +63,16 @@
                 clearable
                 class="ipt">
             </el-input>
-<<<<<<< HEAD
-            <el-input placeholder="请输入教室号" v-model="room_id" show-password></el-input>
-            <el-input placeholder="请输入课程名" v-model="subject_id" show-password></el-input>
-=======
+
+            <!-- <el-input placeholder="请输入教室号" v-model="room_id" show-password></el-input>
+            <el-input placeholder="请输入课程名" v-model="subject_id" show-password></el-input> -->
+
             <el-select v-model="value1" placeholder="请选择教室号" class="select1">
             <el-option
             v-for="item in classData"
             :key="item.room_id"
             :label="item.room_text"
-            :value="item.room_text">
+            :value="item.room_id">
             </el-option>
             </el-select>
             <el-select v-model="value2" placeholder="课程名" class="select2">
@@ -80,10 +80,10 @@
             v-for="item in nameData"
             :key="item.subject_id"
             :label="item.subject_text"
-            :value="item.subject_text">
+            :value="item.subject_id">
             </el-option>
             </el-select>
->>>>>>> list
+
             <span slot="footer" class="dialog-footer">
             <el-button @click="flag = false">取 消</el-button>
             <el-button type="primary" @click="submit">提交</el-button>
@@ -107,7 +107,7 @@
             v-for="item in classData"
             :key="item.room_id"
             :label="item.room_text"
-            :value="item.room_text">
+            :value="item.room_id">
             </el-option>
             </el-select>
             <el-select v-model="value4" placeholder="课程名" class="select2">
@@ -115,12 +115,23 @@
             v-for="item in nameData"
             :key="item.subject_id"
             :label="item.subject_text"
-            :value="item.subject_text">
+            :value="item.subject_id">
             </el-option>
             </el-select>
             <span slot="footer" class="dialog-footer">
             <el-button @click="flags = false">取 消</el-button>
             <el-button type="primary" @click="submit1">提交</el-button>
+            </span>
+        </el-dialog>
+        <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            >
+            <span>这是一段信息</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="deleteFn">确 定</el-button>
             </span>
         </el-dialog>
         </div>
@@ -142,14 +153,6 @@ export default {
         return {
             flag:false,
             flags:false,
-<<<<<<< HEAD
-            subject_id:"",
-            grade_name:"",
-            room_text:"",
-            room_text1:"",
-            room_id1:"",
-            room_id:""
-=======
             value1:'',
             value2:'',
             value3:'',
@@ -159,8 +162,8 @@ export default {
             grade_id:'',
             grade_name:'',
             subject_id:'',
-            room_id:''
->>>>>>> list
+            room_id:'',
+            dialogVisible:false
         }
     },
     methods: {
@@ -178,14 +181,20 @@ export default {
         },
         handleDelete(index, row) {
             console.log(index, row);
-            this.$http.delete('/api/manger/grade/delete', {grade_id:row.grade_id}).then(res=>{
+            this.grade_id = row.grade_id;
+            this.dialogVisible = !this.dialogVisible
+            
+        },
+        deleteFn(){
+            this.$http.delete('/api/manger/grade/delete', {grade_id:this.grade_id}).then(res=>{
                 if(res.data.code === 1){
                     this.getData();
-                    alert(res.data.msg)
+                   
                 }else{
                     console.log(res)
                 }
             })
+            this.dialogVisible = !this.dialogVisible
         },
         clickFn(){
             this.flag = !this.flag
@@ -207,32 +216,24 @@ export default {
         },
         submit(){
             this.flag = !this.flag;
-<<<<<<< HEAD
-            this.$http.post("/api/manger/grade", {grade_name:this.grade_name, room_id:this.room_id, subject_id:this.subject_id}).then(res=>{
-                if(res.data.code === 1){
-                    alert(res.data.msg)
-                    this.getData()
-                }
-            })
-            // this.addClass({grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id});
-            this.getData();
-=======
-            this.$http.post('/api//manger/grade', {grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id}).then(res=>{
+            this.$http.post('/api/manger/grade', {grade_name:this.grade_name, room_id:this.value1, subject_id:this.value2}).then(res=>{
                 if(res.data.code === 1){
                     this.getData();
-                    alert(res.data.msg)
+                    this.grade_name = "",
+                    this.value1 = "",
+                    this.value2 = ""
+                   
                 }else{
                     console.log(res)
                 }
             })
->>>>>>> list
         },
         submit1(){
             this.flags = !this.flags;
-            this.$http.put('/api/manger/grade/update', {grade_id:this.grade_id, grade_name:this.grade_name, subject_id:this.subject_id, room_id:this.room_id}).then(res=>{
+            this.$http.put('/api/manger/grade/update', {grade_id:this.grade_id, room_id:this.value3, subject_id:this.value4 }).then(res=>{
                 if(res.data.code === 1){
                     this.getData();
-                    alert(res.data.msg)
+                   
                 }else{
                     console.log(res)
                 }

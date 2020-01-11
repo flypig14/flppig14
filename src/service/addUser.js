@@ -27,8 +27,6 @@ const addUser = {
             https.post('/api/user', {user_name, user_pwd}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
-                }else{
-                    alert('失败')
                 }
             })
         },
@@ -37,8 +35,6 @@ const addUser = {
             https.put('/api/user/user', {user_name, user_pwd, user_id}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
-                }else{
-                    alert('失败')
                 }
             })
         },
@@ -47,8 +43,6 @@ const addUser = {
             https.get('/api//user/identity/edit', {identity_text}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
-                }else{
-                    alert('失败')
                 }
             })
         },
@@ -57,8 +51,6 @@ const addUser = {
             https.get('/api//user/authorityApi/edit', {api_authority_text, api_authority_url, api_authority_method}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
-                }else{
-                    alert('失败')
                 }
             })
         },
@@ -67,8 +59,6 @@ const addUser = {
             https.get('api/user/authorityView/edit', {view_authority_text}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
-                }else{
-                    alert('失败')
                 }
             })
 
@@ -78,8 +68,6 @@ const addUser = {
             https.post('/api/user/setIdentityApi', {identity_id, api_authority_id}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
-                }else{
-                    alert('失败')
                 }
             })
         },
@@ -88,8 +76,6 @@ const addUser = {
             https.post('/api/user/setIdentityView', {identity_id, view_authority_id}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
-                }else{
-                    alert('失败')
                 }
             })
         },
