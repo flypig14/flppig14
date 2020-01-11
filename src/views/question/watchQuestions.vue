@@ -47,7 +47,11 @@
                 </span>
                 <span>{{v.user_name}} 发布</span>
             </div>
+<<<<<<< HEAD
             <div class="right" style="color : blue" @click="$router.push('/home/quesDetail')">编辑</div>
+=======
+            <div class="right" @click="changes(v.questions_id)">编辑</div>
+>>>>>>> list
         </div>
     </div>
 </template>
@@ -76,6 +80,7 @@ export default {
     },
     methods:{
         ...mapActions("watch", ["getList", "getOpt", "getType", "getData"]),
+<<<<<<< HEAD
         whole(){
             this.flag = !this.flag
             if(this.flag){
@@ -85,6 +90,15 @@ export default {
             }
         },
         
+=======
+        changes(id){
+            console.log(id)
+            this.$router.push({
+                path:'/home/watchDetail',
+                query:{id:id}
+            })
+        }
+>>>>>>> list
         // searchVn(exam_name, questions_type_text){
         //     console.log(exam_name, questions_type_text)
         // }

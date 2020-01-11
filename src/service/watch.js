@@ -31,7 +31,7 @@ const watch = {
                     }
                 })
             }
-            console.log(state.list)
+            console.log(state.data, state.list)
         }
     },
     actions: {
