@@ -12,12 +12,12 @@
                               <div class="block"><el-avatar :size="40" :src="circleUrl"></el-avatar></div>
                             </div>
                           </el-col> 
-                       <span>w916peach</span>
+                       <span>{{user}}</span>
                         <ul class="selectList">
                             <li>个人中心</li>
                             <li>我的班级</li>
                             <li>设置</li>
-                            <li>退出登录</li>
+                            <li @click="$router.push('/login')">退出登录</li>
                         </ul>
                     </p>
                 </div>
@@ -148,16 +148,11 @@ import cookie from "js-cookie"
 export default {
     data(){
         return {
-<<<<<<< HEAD
             circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+            user:cookie.get('user')
         }
+        
     }
-=======
-            data:cookie.get('data')
-        }
-    }
-
->>>>>>> list
 }
 </script>
 

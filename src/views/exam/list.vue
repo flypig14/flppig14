@@ -121,11 +121,7 @@ export default {
             exam_name:"",
             subject_text:"",
             liData:["全部", "进行中", "已结束"],
-<<<<<<< HEAD
             curIndex:1,
-=======
-            curIndex:1, 
->>>>>>> list
         }
     },
     methods:{
@@ -136,11 +132,7 @@ export default {
         },
         detail(id){
             this.$router.push({
-<<<<<<< HEAD
                 path:"/home/detail",
-=======
-                path:"/home/detail.vue",
->>>>>>> list
                 query:{id:id}
             })
         },

@@ -30,9 +30,9 @@
                         :value="item.questions_type_text">
                     </el-option>
                 </el-select>
-                  <el-button type="primary" @click="searchVn(exam_name, questions_type_text)">
+                  <el-button type="primary" @click="searchVn({exam_name, questions_type_text})">
                       <i class="el-icon-search"></i>
-                      主要按钮
+                      搜索
                     </el-button>
             </div>
         </header>
@@ -47,11 +47,7 @@
                 </span>
                 <span>{{v.user_name}} 发布</span>
             </div>
-<<<<<<< HEAD
-            <div class="right" style="color : blue" @click="$router.push('/home/quesDetail')">编辑</div>
-=======
-            <div class="right" @click="changes(v.questions_id)">编辑</div>
->>>>>>> list
+            <div class="right" style="color : blue" @click="changes(v.questions_id)">编辑</div>
         </div>
     </div>
 </template>
@@ -66,8 +62,8 @@ export default {
         this.getOpt()
     },
     computed:{
-        ...mapState("watch", ["data", "options", "type", "questype", "list"]),
-        ...mapMutations("watch", ["searchVn"])
+        ...mapState("watch", ["data", "options", "type", "questype"]),
+       
     },
     data(){
         return {
@@ -75,12 +71,12 @@ export default {
             questions_type_text:"",
             flag:false,
             curIndex:null,
-            flv:false
+            flv:false,
         }
     },
     methods:{
-        ...mapActions("watch", ["getList", "getOpt", "getType", "getData"]),
-<<<<<<< HEAD
+        ...mapActions("watch", ["getList", "getOpt", "getType", "getData", "list"]),
+        ...mapMutations("watch", ["searchVn"]),
         whole(){
             this.flag = !this.flag
             if(this.flag){
@@ -89,18 +85,38 @@ export default {
                 this.flv = !this.flv
             }
         },
-        
-=======
         changes(id){
-            console.log(id)
             this.$router.push({
                 path:'/home/watchDetail',
                 query:{id:id}
             })
-        }
->>>>>>> list
-        // searchVn(exam_name, questions_type_text){
-        //     console.log(exam_name, questions_type_text)
+        },
+        getList(){
+            this.$http.get('/api/exam/questions/new').then(res=>{
+                this.$store.dispatch("watch/getList", res.data.data)
+            })
+        },
+        // searchVn(data){
+        //     return data.filter(item=>{
+        //         if(item.exam_name.includes(this.exam_name)){
+        //             console.log(item)
+        //             return item;
+        //         }else if(item.questions_type_text.includes(this.questions_type_text)){
+        //             console.log(item)
+        //             return item;
+        //         }
+        //     })
+        // if(exam_name && questions_type_text){
+               
+        // data.filter(item=>{
+        //     if(item.exam_name === this.exam_name && item.questions_type_text === this.questions_type_text){
+        //         this.list.push(item);
+        //         return data = this.list;
+        //     }
+        // })
+        // console.log(this.list)
+        // console.log(this.data, this.list)
+        // console.log(data)
         // }
     }
 
@@ -165,12 +181,12 @@ header{
     height: 40px;
     margin: 5px 20px;
 }
-.el-select,.el-input{
-    width: 300px;
-    // margin: 0 10px;
-    margin-right: 60px;
-    height: 20px !important;
-}
+// .el-select,.el-input{
+//     width: 300px;
+//     // margin: 0 10px;
+//     margin-right: 60px;
+//     height: 20px !important;
+// }
 p{
     width: 100%;
     height: 10px;

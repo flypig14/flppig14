@@ -23,10 +23,10 @@ const addUser = {
     },
     actions: {
         //添加用户
-        getList(state, {user_name, user_pwd}){
+        getList(state, {user_name, user_pwd, dialogVisible}){
             https.post('/api/user', {user_name, user_pwd}).then(res=>{
                 if(res.data.code === 1){
-                    console.log(res.data.msg)
+                    dialogVisible = !dialogVisible
                 }
             })
         },
@@ -35,6 +35,9 @@ const addUser = {
             https.put('/api/user/user', {user_name, user_pwd, user_id}).then(res=>{
                 if(res.data.code === 1){
                     console.log(res.data.msg)
+                    user_name = "",
+                    user_pwd = "",
+                    user_id = ""
                 }
             })
         },

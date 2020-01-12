@@ -10,7 +10,7 @@ const paper = {
     },
     actions:{
         getData({commit}, data){
-            console.log(data);
+           
           
             commit("setData", data)
         }

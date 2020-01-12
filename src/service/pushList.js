@@ -2,15 +2,32 @@
 const pushList = {
     namespaced:true,
     state:{
-        tableData:[]
+        data:[],
+        list:[],
+        options:[]
     },
     mutations:{
+        setData(state, data){
+            state.data = data
+        },
+        setList(state, data){
+            state.list = data
+        },
+        setOpt(state, data){
+            state.options = data
+        }
         
     },
     actions:{
-        // pushList(state, {title, questions_stem, exam_id, subject_id, questions_type_id, questions_answer,  }){
-
-        // }
+        getData({commit}, data){
+            commit("setData", data)
+        },
+        getList({commit}, data){
+            commit("setList", data)
+        },
+        getOpt({commit}, data){
+            commit("setOpt", data)
+        }
        
     }
 }

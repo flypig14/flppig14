@@ -6,11 +6,13 @@ const examlist = {
         type:[],
         options:[],
         list:[],
-        detail:[]
+        detail:[],
+        newdata:[]
     },
     mutations: {
         setList(state, data){
             state.tableData = data
+            state.newdata = data
         },
         setType(state, data){
             state.type = data
@@ -19,17 +21,18 @@ const examlist = {
             state.options = data
         },
         searchFn(state, {exam_name, subject_text}){
-            console.log(state.tableData)
-            if(exam_name || subject_text){
-                state.tableData.filter(item=>{
-                    if(item.exam_name === exam_name || item.subject_text === subject_text){
-                        state.list.push(item);
-                        console.log(state.list)
-                        return state.tableData = state.list;
-                        
+         
+            if(exam_name && subject_text){
+                console.log(typeof exam_name, subject_text)
+                let aa = state.newdata.filter(item=>{
+                    if(item.exam_name === exam_name && item.subject_text === subject_text){
+                        console.log(item)
+                        return item
                     }
                 })
+                state.tableData = aa
             }
+            
         },
         setDetail(state, payload){
             state.detail = payload

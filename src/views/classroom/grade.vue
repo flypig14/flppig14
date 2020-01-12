@@ -63,13 +63,6 @@
                 clearable
                 class="ipt">
             </el-input>
-<<<<<<< HEAD
-
-            <!-- <el-input placeholder="请输入教室号" v-model="room_id" show-password></el-input>
-            <el-input placeholder="请输入课程名" v-model="subject_id" show-password></el-input> -->
-
-=======
->>>>>>> list
             <el-select v-model="value1" placeholder="请选择教室号" class="select1">
             <el-option
             v-for="item in classData"
@@ -86,10 +79,6 @@
             :value="item.subject_id">
             </el-option>
             </el-select>
-<<<<<<< HEAD
-
-=======
->>>>>>> list
             <span slot="footer" class="dialog-footer">
             <el-button @click="flag = false">取 消</el-button>
             <el-button type="primary" @click="submit">提交</el-button>
@@ -168,20 +157,16 @@ export default {
             grade_id:'',
             grade_name:'',
             subject_id:'',
-<<<<<<< HEAD
             room_id:'',
             dialogVisible:false
-=======
-            room_id:''
->>>>>>> list
         }
     },
     methods: {
         // ...mapActions("grade", ["getData", "addClass", "changeClass"]),
         handleEdit(index, row) {
             console.log(index, row);
-            this.value3 = row.room_text;
-            this.value4 = row.subject_text;
+            this.value3 = row.room_id;
+            this.value4 = row.subject_id;
             this.grade_name = row.grade_name;
             this.grade_id = row.grade_id;
             this.grade_name = row.grade_name;
@@ -226,11 +211,7 @@ export default {
         },
         submit(){
             this.flag = !this.flag;
-<<<<<<< HEAD
             this.$http.post('/api/manger/grade', {grade_name:this.grade_name, room_id:this.value1, subject_id:this.value2}).then(res=>{
-=======
-            this.$http.post('/api//manger/grade', {grade_name:this.grade_name, room_id:this.room_text, subject_id:this.subject_id}).then(res=>{
->>>>>>> list
                 if(res.data.code === 1){
                     this.getData();
                     this.grade_name = "",

@@ -27,7 +27,6 @@ export default {
     methods:{
         loginFn(){
             if(!this.user_name.trim() && !this.user_pwd.trim()){
-               
             }else{
                 axios.post("/api/user/login", {
                     user_name:this.user_name,
@@ -36,13 +35,14 @@ export default {
                     if(res.data.code === 1){
                         cookie.set("token", res.data.token)
                         this.$router.push("/home");
-                        cookie.set('data', res.data.data)
-                    }else{
-                        alert(res.data.msg)
+                        cookie.set('user', this.user_name)
+                        
+                       
                     }
                 })
             }
-        }
+        },
+        
     }
 }
 </script>

@@ -18,9 +18,23 @@
   </el-select>
             <div class="btn">
             <el-button type="primary" class="button1" @click="addUser">确定</el-button>
-            <el-button class="button2">重置</el-button>
+            <el-button class="button2" @click="reset">重置</el-button>
             </div>
         </el-tab-pane>
+        <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            >
+            <span>这是一段信息</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            </span>
+        </el-dialog>
+
+
+
         <el-tab-pane label="更新用户" name="second" class="tab2">
             <el-select v-model="value2" placeholder="请选择" class="autoipt">
             <el-option
@@ -42,7 +56,7 @@
   </el-select>
             <div class="btn">
             <el-button type="primary" class="button1" @click="updateUser">确定</el-button>
-            <el-button class="button2">重置</el-button>
+            <el-button class="button2" @click="resetOne">重置</el-button>
             </div>
         </el-tab-pane>
         </el-tabs>
@@ -64,7 +78,7 @@
         <el-input v-model="input8" placeholder="请输入api接口权限方法" class="ipt1"></el-input>
         <div class="btn">
             <el-button type="primary" class="button1" @click="addApiFn">确定</el-button>
-            <el-button class="button2">重置</el-button>
+            <el-button class="button2" @click="resetTwo">重置</el-button>
         </div>
         </el-tab-pane>
         </el-tabs>
@@ -81,7 +95,7 @@
   </el-select>
         <div class="btn">
             <el-button type="primary" class="button1" @click="addView">确定</el-button>
-            <el-button class="button2">重置</el-button>
+            <el-button class="button2" @click="resetThree">重置</el-button>
         </div>
         </el-tab-pane>
         </el-tabs>
@@ -106,7 +120,7 @@
   </el-select>
         <div class="btn">
             <el-button type="primary" class="button1" @click="updataApiFn">确定</el-button>
-            <el-button class="button2">重置</el-button>
+            <el-button class="button2" @click="resetFour">重置</el-button>
         </div>
         </el-tab-pane>
         </el-tabs>
@@ -131,7 +145,7 @@
   </el-select>
         <div class="btn">
             <el-button type="primary" class="button1" @click="updataViewFn">确定</el-button>
-            <el-button class="button2">重置</el-button>
+            <el-button class="button2" @click="resetFive">重置</el-button>
         </div>
         </el-tab-pane>
         </el-tabs> 
@@ -164,7 +178,8 @@ export default {
             input5:'',
             input6:'',
             input7:'',
-            input8:''
+            input8:'',
+            dialogVisible:false
         };
     },
     computed:{
@@ -179,7 +194,7 @@ export default {
     methods: {
         ...mapActions('addUser', ['getList', 'upDate', 'getListId', 'getListUser', 'getId', 'getApi', 'getView', 'getListView', 'getListApi', 'updataApi', 'updataView']),
         addUser(){
-            this.getList({user_name:this.input1, user_pwd:this.input2});
+            this.getList({user_name:this.input1, user_pwd:this.input2, dialogVisible:false});
         },
         updateUser(){
             this.upDate({user_name:this.input3, user_pwd:this.input4, id:this.value2})
@@ -202,6 +217,34 @@ export default {
         handleClick(tab, event) {
             console.log(tab, event);
         },
+        reset(){
+            this.value1 = "" 
+            this.input1 = "" 
+            this.input2 = ""
+        },
+        resetOne(){
+            this.value2 = "" 
+            this.value3 = ""
+            this.input3 = "" 
+            this.input4 = ""
+        },
+        resetTwo(){
+            this.input5 = "" 
+            this.input6 = ""
+            this.input7 = "" 
+            this.input8 = ""
+        },
+        resetThree(){
+            this.value4 = ""
+        },
+        resetFour(){
+            this.value5 = "" 
+            this.value6 = ""
+        },
+        resetFive(){
+            this.value7 = "" 
+            this.value8 = ""
+        }
     },
     mounted() {
        

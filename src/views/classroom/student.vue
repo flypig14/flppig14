@@ -22,8 +22,8 @@
                     :value="item.room_text">
                 </el-option>
             </el-select>
-            <el-button type="primary" @click="serachFn({student_name, student_id, grade_name, room_text}  )">搜索</el-button>
-            <el-button type="primary">重置</el-button>
+            <el-button type="primary" @click="serachFn({student_name, student_id, grade_name, room_text}  )" id="reset">搜索</el-button>
+            <el-button type="primary" id="reset" @click="reset">重置</el-button>
         </div>
         <div class="session">
             <el-table
@@ -84,6 +84,17 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+            <span>确认删除吗</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="sure">确 定</el-button>
+            </span>
+        </el-dialog>
         <el-pagination
             @current-change="handleCurrentChange"
             :current-page="currentPage"
@@ -114,6 +125,7 @@ export default {
             room_text: "",
             currentPage:1, //初始页
             pagesize:20,
+            dialogVisible:false,
         }
     },
     methods:{
@@ -128,9 +140,20 @@ export default {
             })
         },
         deleteList(row){
-            this.delList({id:row.student_id});
+            this.student_id = row.student_id
+            this.dialogVisible = !this.dialogVisible
+        },
+        sure(){
+            this.delList({id:this.student_id});
+            this.dialogVisible = !this.dialogVisible
             this.getData()
-        },   
+        },
+        reset(){
+            this.student_name = ""
+            this.student_id = ""
+            this.grade_name = ""
+            this.room_text =  ""
+        }   
     }
 }
   
@@ -169,7 +192,7 @@ export default {
     height: 20px;
     margin-right: 20px;
 }
-.el-button{
+#reset{
     width:10%;
     height: 30px;
     line-height: 8px;

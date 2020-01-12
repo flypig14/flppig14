@@ -5,11 +5,18 @@
         </p>
         
         <div class="d-left">
-
+            <div class="box" v-for="(v,i) in tableData.questions" :key="i">
+                <span>{{v.title}}</span>
+                <span>{{v.questions_stem}}</span>
+            </div>
         </div>
         <div class="right">
             <div class="block">
-                <span class="demonstration"></span>
+                <span >
+                    {{tableData.student_name}}
+                </span>
+                
+                <span>得分</span>
                 <el-slider v-model="value2"></el-slider>
             </div>
               <el-button type="primary" @click="submitFn">提交</el-button>
@@ -48,7 +55,7 @@ export default {
     methods:{
         getData(){
             this.$http.get(`/api/exam/student/${this.id}`).then(res=>{
-                this.$store.dispatch("/detail/getData", res.data.data)
+                this.$store.dispatch("detail/getData", res.data.data)
             })
         },
         formatTooltip(val) {
@@ -84,14 +91,26 @@ export default {
 }
 .right{
     width: 20%;
-    height: 300px;
+    height: 200px;
     background: #fff;
     position: fixed;
     top: 20%;
     right: 3%;
     border-radius: 10px;
-    .block{
-        margin-top: 200px;
-    }
+   .block{
+       display: flex;
+       flex-direction: column;
+       span{
+           margin: 10px 0
+       }
+   }
+   .box{
+       width: 100%;
+       display: flex;
+       flex-direction: column;
+       p{
+           line-height: 30px;
+       }
+   }
 }
 </style>

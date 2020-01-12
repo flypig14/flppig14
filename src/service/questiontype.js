@@ -12,10 +12,9 @@ const questiontype = {
     },
     actions: {
         getData({commit}, data){
-            // $http.get("/api/exam/getQuestionsType").then(res=>{
-            //     if(res.data.code === 1){
+          
             commit("setlist", data)
-            // }
+            
         }
     },
     

@@ -5,11 +5,13 @@ const student = {
         tableData:[],
         grade:[],
         room:[],
-        list:[]
+        list:[],
+        newdata:[]
     },
     mutations: {
         setlist(state, payload){
             state.tableData = payload
+            state.newdata = payload
         },
         setData(state, payload){
             state.grade = payload
@@ -18,13 +20,14 @@ const student = {
             state.room = payload
         },
         serachFn(state, {student_name, student_id, grade_name, room_text}){
-            if(student_name || student_id || grade_name || room_text){
-                state.tableData.filter(item=>{
-                    if(item.student_name === student_name || item.student_id === student_id || item.grade_name === grade_name || item.room_text === room_text){
-                        state.list.push(item);
-                        return state.tableData = state.list;                
+            console.log(student_name, student_id, grade_name, room_text)
+            if(student_name && student_id && grade_name && room_text){
+                let aa = state.newdata.filter(item=>{
+                    if(item.student_name === student_name && item.student_id === student_id && item.grade_name === grade_name && item.room_text === room_text){
+                        return item                
                     }    
                 })
+                state.tableData = aa
             }
         },
         
@@ -50,7 +53,7 @@ const student = {
         delList(state, {id}){
             $http.delete(`/api/manger/student/${id}`).then(res=>{
                 if(res.data.code === 1){
-                    console.log(res)
+                    
                 }
             })
         }

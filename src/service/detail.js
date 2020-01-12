@@ -10,7 +10,7 @@ const detail = {
     },
     actions:{
         getData({commit}, data){
-            console.log(data);
+           
           
             commit("setData", data)
         }
